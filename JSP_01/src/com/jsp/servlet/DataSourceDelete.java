@@ -27,11 +27,11 @@ public class DataSourceDelete extends HttpServlet {
 		DataSource source1 = DataSource.getInstance();
 
 		//입력
-		String id = request.getParameter("id");
+		String bno = request.getParameter("bno");
 		String url = request.getContextPath()+"/dataSource";
 		
 		
-		source1.getMemberList().remove(id);
+		source1.getBoardList().remove(Integer.parseInt(bno));
 		
 		
 		//memberService.regist(member); <-----DB저장

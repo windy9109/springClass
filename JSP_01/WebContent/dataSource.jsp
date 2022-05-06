@@ -1,3 +1,4 @@
+<%@page import="com.jsp.vo.Board"%>
 <%@page import="com.jsp.vo.Member"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -5,46 +6,87 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
 <title>Insert title here</title>
+
+
+<style>
+ 	button{
+		    background: #89a438;
+	    border: 1px solid #6e8c32;
+	    color: #fff;
+	    font-weight: 600;
+	    padding: 15px 20px;
+	    border-radius: 5px;
+	}
+
+h1{
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
+    width: 100%;
+    border-bottom: 1px solid #999;
+    letter-spacing: -4px;
+    font-weight: 600 !important;
+    font-size: 24px !important;
+}
+	}
+	th{  
+
+	}
+	td{}
+	tr{}
+	tbody{}
+	.title_t{width: 60%;} 
+	.container{	
+    padding-bottom: 70px;}
+</style>
+
+  <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+  
 </head>
 <body>
 
 
 
 		
-
-<div style="min-width:1200px;margin:0 auto;">
-		 
-		<h1 style="text-align:center;">회원리스트</h1>
-		<hr style="width:70%;margin:0 auto;"/>
+<h1 style="text-align:center; padding: 70px;">회원리스트</h1>
+<div class="container" style="min-width:1200px;margin:0 auto;">
 		<br/>
-		<div style="width:70%;margin:0 auto;position:relative;overflow:hidden;">
-			<button onclick="location.href='regist'" type="button" style="display:block;float:right;">회원가입</button>
+		<div style="width:100%; margin:0 auto;position:relative;overflow:hidden;">
+			<button onclick="location.href='regist'" type="button" style="display:block;float:right;">글쓰기</button>
 		</div>
 		<br/>
 		
-	<form action="">
-		<table border="1" style="width:70%;margin:0 auto;">
+		
+		<table border="1" style="width:100%;margin:0 auto;" class="table table-dark table-hover">
+		<thead class="thead-dark">
 			<tr>
-				<th style="width:10%;">번호</th>
-				<th style="width:45%;">아이디</th>
-				<th style="width:45%;">패스워드</th>
-				<th style="width:45%;">상세보기</th>
+				<th class="bno_t">번호</th>
+				<th class="title_t">제목</th>
+				<th class="regDate_t">날짜</th>
+				<th class="viewCnt_t">조회수</th>
+				<th class="writer_t">작성자</th>
 			</tr>
+			</thead>
 			<%
-				List<Member> memberList = (List<Member>)request.getAttribute("data");
+				List<Board> boardList = (List<Board>)request.getAttribute("data");
 				
 				int count = 0;
-				if (memberList!=null) for(Member member : memberList){
-				pageContext.setAttribute("member",member);
+				if (boardList!=null) for(Board board : boardList){
+				pageContext.setAttribute("board", board);
 				pageContext.setAttribute("num",count++);
 			%>
 			<tr style="text-align:center">
-				<td>${num}</td>
-				<td>${member.id }</td>
-				<td>${member.pwd }</td>
-				<td><button onclick="location.href='Sdetail?id=${member.id}&pwd=${member.pwd}'" type="button" style="width:100px;">상세보기</button></td>
+				<%-- <td>${num}</td> --%>
+				<td class="bno">${board.bno}</td>
+				<td class="title" onclick="location.href='Sdetail?bno=${board.bno}'">${board.title }</td>
+				<td class="regDate">${board.regDate }</td>
+				<td class="viewCnt">${board.viewCnt }</td>
+				<td class="writer">${board.writer }</td>
+
 				
 			</tr>
 			<%		
@@ -58,7 +100,6 @@
 				}
 			%>
 		</table>
-	</form>
 </div>
 	
 

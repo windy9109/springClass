@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jsp.vo.Board;
 import com.jsp.vo.Member;
 
 /**
@@ -28,10 +29,10 @@ public class DataSource2 extends HttpServlet {
 
 		DataSource source = DataSource.getInstance();
 		
-		Map<String, Member> data = source.getMemberList();
-		List<Member> memberList = new ArrayList<Member>(data.values());
+		Map<Integer, Board> data = source.getBoardList();
+		List<Board> BoardList = new ArrayList<Board>(data.values());
 		
-		request.setAttribute("data", memberList);
+		request.setAttribute("data", BoardList);
 		request.getRequestDispatcher(url).forward(request, response);
 	
 	}

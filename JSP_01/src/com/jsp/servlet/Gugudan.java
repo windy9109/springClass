@@ -17,14 +17,6 @@ public class Gugudan extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
-	
-    public Gugudan() {
-
-    }
-
-
-
-
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
