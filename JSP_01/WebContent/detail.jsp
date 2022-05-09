@@ -3,22 +3,34 @@
 <!DOCTYPE html>
 <html>
 <head>
+	
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-.rap_box{      border: 1px solid #333;
-    width: 1200px;
-    padding: 50px 50px 100px;
+body{
+background: #f4f6f9;
+}
+.rap_box{      width: 1200px;
     margin: auto;
     display: inline-block;
     text-align: left;
     margin-top: 50px;
+    box-shadow: 0 0 1px rgb(0 0 0 / 13%), 0 1px 3px rgb(0 0 0 / 20%);
+    background: #fff;
+    border-radius: 10px;
+    padding: 50px 50px 100px;
         }
     
 .box{ }
 .bno{}
 .regDate{}
-.title{     border-top: 1px solid #999;
+.title{         border-top: 1px solid rgba(0,0,0,.125);
     padding-top: 30px;     padding-bottom: 10px; }
 .content{}
 .viewCnt{}
@@ -51,7 +63,7 @@ text-align: center;
 </head>
 <body>
 <div class="rap1">
-	<div class="rap_box">
+	<div class="rap_box card">
 		<h1>상세보기</h1>
 		<div class="box">
 			<div class="box_s">

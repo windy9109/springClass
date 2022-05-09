@@ -12,6 +12,12 @@
 <title>Insert title here</title>
 
 <style>
+
+body{
+background: #f4f6f9;
+text-align: center;
+}
+
  	.button1{
 		    background: #89a438;
 	    border: 1px solid #6e8c32;
@@ -22,12 +28,15 @@
 	    width: 100%;
 	}
 	#form{
-		width: 1200px;
-	    margin: auto;
-	    padding-top: 70px !important;
-	    border: 1px solid #999;
-	    padding: 50px;
-	    margin-top: 70px;
+		  width: 1200px;
+    margin: auto;
+    display: inline-block;
+    text-align: left;
+    margin-top: 50px;
+    box-shadow: 0 0 1px rgb(0 0 0 / 13%), 0 1px 3px rgb(0 0 0 / 20%);
+    background: #fff;
+    border-radius: 10px;
+    padding: 50px 50px 100px;
 	}
 	h1{
 	text-align: center;
