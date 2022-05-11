@@ -9,8 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jsp.vo.Board;
-import com.jsp.vo.Member;
+import com.jsp.vo.BoardVO;
 
 /**
  * Servlet implementation class MemberRegistServlet
@@ -51,7 +50,7 @@ public class DataSourcesUpdate extends HttpServlet {
 		
 		
 		//처리
-		Board board = new Board(Integer.parseInt(bno), title, content, Writer, RegDate, ViewCnt);
+		BoardVO board = new BoardVO(Integer.parseInt(bno), title, content, Writer, RegDate, ViewCnt);
 		board.setBno(Integer.parseInt(bno));
 		board.setTitle(title);
 		board.setContent(content);

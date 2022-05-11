@@ -13,8 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jsp.vo.Board;
-import com.jsp.vo.Member;
+import com.jsp.vo.BoardVO;
 
 /**
  * Servlet implementation class MemberRegistServlet
@@ -51,7 +50,7 @@ public class MemberRegistServlet extends HttpServlet {
 
 		
 		//처리
-		Board board = new Board(maxKey+1, title, content, writer, format1, 0);
+		BoardVO board = new BoardVO(maxKey+1, title, content, writer, format1, 0);
 		board.setBno(maxKey+1);
 		board.setTitle(title);
 		board.setContent(content);

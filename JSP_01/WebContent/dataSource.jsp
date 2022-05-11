@@ -1,5 +1,4 @@
-<%@page import="com.jsp.vo.Board"%>
-<%@page import="com.jsp.vo.Member"%>
+<%@page import="com.jsp.vo.BoardVO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -96,12 +95,12 @@ h1{
 			</tr>
 			</thead>
 			<%
-				List<Board> boardList = (List<Board>)request.getAttribute("data");
-				
-				int count = 0;
-				if (boardList!=null) for(Board board : boardList){
-				pageContext.setAttribute("board", board);
-				pageContext.setAttribute("num",count++);
+				List<BoardVO> boardList = (List<BoardVO>)request.getAttribute("memberList");
+					
+					int count = 0;
+					if (boardList!=null) for(BoardVO board : boardList){
+					pageContext.setAttribute("board", board);
+					pageContext.setAttribute("num",count++);
 			%>
 			<tr style="text-align:center">
 				<%-- <td>${num}</td> --%>
