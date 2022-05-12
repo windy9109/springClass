@@ -1,7 +1,19 @@
+<%@page import="com.jsp.command.PageMaker"%>
+<%@page import="java.util.Map"%>
 <%@page import="com.jsp.dto.MemberVO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%
+	Map<String,Object> dataMap 
+		= (Map<String,Object>)request.getAttribute("dataMap");
+	List<MemberVO> memberList 
+		= (List<MemberVO>)dataMap.get("memberList");
+	PageMaker pageMaker = (PageMaker)dataMap.get("pageMaker");
+	
+%>
+
 
 <!DOCTYPE html>
 <!--
@@ -85,7 +97,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
    					 </div>
    				</div>   			
    			</div>
-   			<div class="card-body" style="text-align:center;height:76vh;">
+   			<div class="card-body" style="text-align:center;">
     		  <div class="row">
 	             <div class="col-sm-12">	
 		    		<table class="table table-bordered">
@@ -98,55 +110,114 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		                	<th>전화번호</th>
 		                	<th>등록날짜</th> <!-- yyyy-MM-dd  -->
 		               	</tr>
-		               	<% 
-		               		List<MemberVO> list = (List<MemberVO>)request.getAttribute("memberList");
-		               		if(list != null) for(MemberVO member : list){
-		        			
-		               			pageContext.setAttribute("member", member);		               			
-		        				//MemberVO vo = list.get(i);
-		               	%>
-<%-- 		            방법1
-						<tr>
-		    				<th><%= vo.getPicture() %></th>
-		                	<th><%= vo.getId() %></th>
-		                	<th><%= vo.getPwd() %></th>
-		                	<th><%= vo.getName() %></th>
-		                	<th><%= vo.getEmail() %></th>
-		                	<th><%= vo.getPhone() %></th>
-		                	<th><%= vo.getRegDate() %></th> <!-- yyyy-MM-dd  -->
-		               	</tr> --%>
-		               	<tr>
-		    				<td>${member.picture}</td>
-		                	<td>${member.id}</td>
-		                	<td>${member.pwd}</td>
-		                	<td>${member.name}</td>
-		                	<td>${member.email}</td>
-		                	<td>${member.phone.replace('-','')}</td>
-		                	<td>${member.regDate}</td> <!-- yyyy-MM-dd  -->
-		               	</tr>
-		               <% 
-		        			}else{
-		               	%>
-		               	<tr>
-		    				<td colspan="7" class="text-center">해당내용이 없습니다.</td>
-		               	</tr>
-		               	<% 
-		        			}
-		               	%>
-		     
+		     			<%
+		     				if(memberList!=null) {
+		     					for(MemberVO member : memberList){
+		     						pageContext.setAttribute("member", member);
+		     					%>
+		     					 <tr  onclick="" style="cursor:pointer;">
+		            		  	   	<td>사진</td>
+		            		  	   	<td>${member.id }</td>
+				              		<td>${member.pwd }</td>
+				              		<td>${member.name }
+				              		<td>${member.email }</td>
+		            		  	   	<td>${member.phone.replace('-','')  }</td>
+		            		  	   	<td>${member.regDate }</td>
+		            		  	  </tr>	
+		     					
+		     					<%
+		     					}
+		     			
+		     				}else{
+		     			%>
+		     			<tr>
+	            			<td colspan="7" class="text-center">
+	            				해당내용이 없습니다.
+	            			</td>
+	            		</tr>
+		     			
+		     			<%
+		     				}
+		     			%>
+		     			
+		     			
 		            </table>
     		     </div> <!-- col-sm-12 -->
     	       </div> <!-- row -->
     		</div> <!-- card-body -->
     		<div class="card-footer">
     			<!-- pagination -->
-    		
+    			<nav aria-label="Navigation">
+					<ul class="pagination justify-content-center m-0">
+						<li class="page-item">
+							<a class="page-link" href="javascript:list_go(1);">
+								<i class="fas fa-angle-double-left"></i>
+							</a>
+						<li class="page-item">
+							<a class="page-link" href="">
+								<i class="fas fa-angle-left"></i>
+							</a>						
+						</li>
+						
+<% 
+	int startPage = pageMaker.getStartPage();
+	int endPage = pageMaker.getEndPage();
+	int pageNum = pageMaker.getCri().getPage();
+	
+	for(int i=startPage;i<endPage+1;i++){
+	%>
+<li class="page-item  <%= (i==pageNum)? "active":"" %>">
+	<a class="page-link" href="javascript:list_go(<%=i %>);"><%=i %></a>
+</li>	
+	
+	<%	
+	} 
+	%>
+						
+						
+						<li class="page-item">
+							<a class="page-link" href="">
+								<i class="fas fa-angle-right"></i>
+							</a>						
+						</li>
+						<li class="page-item">
+							<a class="page-link" href="">
+								<i class="fas fa-angle-double-right"></i>
+							</a>						
+						</li>
+					</ul>
+				</nav>
     		</div>
 	     </div>
    	</section>
   </div>
   
+  
+  
+<form id="jobForm">	
+	<input type='hidden' name="page" value="" />
+	<input type='hidden' name="perPageNum" value=""/>
+	<input type='hidden' name="searchType" value="" />
+	<input type='hidden' name="keyword" value="" />
+</form>
+  
+  
   <script>
+	function list_go(page,url){
+		//alert(page);
+		alert(url)
+		if(!url) url="list";
+		
+		var jobForm=$('#jobForm');
+		jobForm.find("[name='page']").val(page);
+		jobForm.find("[name='perPageNum']").val($('select[name="perPageNum"]').val());
+		
+		jobForm.attr({
+			action:url,
+			method:'get'
+		}).submit();
+		
+	}
   </script>
  <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">

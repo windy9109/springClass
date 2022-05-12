@@ -7,6 +7,10 @@
   		<select id="selectboardList" resultType="BoardVO">
   			select * from BOARD order by REGDATE desc
   		</select>
+  		
+  		<select id="selectMemberListCount" resultType="int">
+  			select count(*) from BOARD order by REGDATE desc
+  		</select>
 <!--   		<insert id="selectboardList" parameterType="BoardVO">
   			insert into BOARD() values(,#TITLE#,##,##,##,##)
   		</insert> -->

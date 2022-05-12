@@ -49,8 +49,14 @@ public class DataSource2 extends HttpServlet {
 		}
 		
 		try {
-			List<BoardVO> memberList = memberService.getMemberList(cri);
-			request.setAttribute("memberList", memberList);
+			
+			Map<String, Object> dataMap = memberService.getMemberListforPage(cri);
+			//System.out.println(dataMap);
+			//List<MemberVO> memberList = memberService.getMemberList(cri);
+			request.setAttribute("dataMap", dataMap);
+			
+			//List<BoardVO> memberList = memberService.getMemberList(cri);
+			//request.setAttribute("memberList", memberList);
 		} catch (Exception e) {
 			//에러
 			url="/WEB-INF/views/error/500.jsp";
