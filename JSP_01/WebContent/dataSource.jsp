@@ -1,17 +1,20 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="com.jsp.command.PageMaker"%>
 <%@page import="java.util.Map"%>
 <%@page import="com.jsp.vo.BoardVO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-	Map<String,Object> dataMap 
-		= (Map<String,Object>)request.getAttribute("dataMap");
-	List<BoardVO> boardList 
-		= (List<BoardVO>)dataMap.get("memberList");
-	PageMaker pageMaker = (PageMaker)dataMap.get("pageMaker");
-	
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+
+
+
+<c:set var="dataMap" value="${requestScope.dataMap}"/>
+<c:set var="boardList" value="${requestScope.dataMap.get('boardList')}"/>
+<c:set var="pageMaker" value="${requestScope.dataMap.get('pageMaker')}"/>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,9 +23,9 @@
  <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/bootstrap/plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/bootstrap/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/dist/css/adminlte.min.css">
 
 <style>
 body{ background-color: #f4f6f9 !important; }
@@ -100,26 +103,26 @@ h1{
    					 	<!-- sort num -->
 					  	<select class="form-control col-md-3" name="perPageNum" 
 					  			id="perPageNum" onchange="">					  		  		
-					  		<option value="10" >정렬개수</option>
-					  		<option value="2" >2개씩</option>
-					  		<option value="3">3개씩</option>
-					  		<option value="5" >5개씩</option>
+					  		<option value="10" ${pageMaker.getCri().getPerPageNum() == 10? 'selected':''}>정렬개수</option>
+					  		<option value="2" ${pageMaker.getCri().getPerPageNum() == 2? 'selected':''}>2개씩</option>
+					  		<option value="3" ${pageMaker.getCri().getPerPageNum() == 3? 'selected':''}>3개씩</option>
+					  		<option value="5" ${pageMaker.getCri().getPerPageNum() == 5? 'selected':''}>5개씩</option>
 					  	</select>
 					  	
 					  	<!-- search bar -->
 					 	<select class="form-control col-md-3" name="searchType" id="searchType">
 					 		<option value=""  >검색구분</option>
-							<option value="i" >아이디</option>
-							<option value="n" >이 름</option>
-							<option value="p" >전화번호</option>
-							<option value="e" >이메일</option>				 									
+							<option value="i" ${param.searchType=='i'? "selected":""}>아이디</option>
+							<option value="n" ${param.searchType=='n'? "selected":""}>이 름</option>
+							<option value="p" ${param.searchType=='p'? "selected":""}>전화번호</option>
+							<option value="e" ${param.searchType=='e'? "selected":""}>이메일</option>				 									
 						</select>
 						<!-- keyword -->
    					 	<input  class="form-control" type="text" name="keyword" 
-										placeholder="검색어를 입력하세요." value=""/>
+										placeholder="검색어를 입력하세요." value="${param.keyword}"/>
 						<span class="input-group-append">
 							<button class="btn btn-primary" type="button" 
-									id="searchBtn" data-card-widget="search" onclick="">
+									id="searchBtn" data-card-widget="search" onclick="list_go(-1);">
 								<i class="fa fa-fw fa-search"></i>
 							</button>
 						</span>
@@ -145,33 +148,24 @@ h1{
 				<th class="writer_t">작성자</th>
 			</tr>
 			</thead>
-			<%
-					
-					int count = 0;
-					if (boardList!=null) for(BoardVO board : boardList){
-					pageContext.setAttribute("board", board);
-					pageContext.setAttribute("num",count++);
-			%>
-			<tr style="text-align:center">
-				<%-- <td>${num}</td> --%>
-				<td class="bno">${board.bno}</td>
-				<td class="title" onclick="location.href='Sdetail?bno=${board.bno}'">${board.title }</td>
-				<td class="regDate">${board.regDate }</td>
-				<td class="viewCnt">${board.viewCnt }</td>
-				<td class="writer">${board.writer }</td>
-
-				
-			</tr>
-			<%		
-				}else{
-			%>
-			<tr >
-				<td colspan="3">해당내용이 없습니다.</td>
-			</tr>
-			<%		
-					
-				}
-			%>
+			<c:choose>
+			<c:when test="${boardList ne null}">
+			<c:forEach items="${boardList}" var="board" varStatus="status">
+				<tr style="text-align:center">
+					<td class="bno">${board.bno}</td>
+					<td class="title" onclick="location.href='Sdetail?bno=${board.bno}'">${board.title }</td>
+					<td class="regDate">${board.regDate }</td>
+					<td class="viewCnt">${board.viewCnt }</td>
+					<td class="writer">${board.writer }</td>
+				</tr>
+			</c:forEach>
+			</c:when>
+			<c:otherwise>
+				<tr >
+					<td colspan="3">해당내용이 없습니다.</td>
+				</tr>
+			</c:otherwise>
+			</c:choose>
 		</table>
 </div>
 
@@ -192,20 +186,16 @@ h1{
 							</a>						
 						</li>
 						
-<% 
-	int startPage = pageMaker.getStartPage();
-	int endPage = pageMaker.getEndPage();
-	int pageNum = pageMaker.getCri().getPage();
-	
-	for(int i=startPage;i<endPage+1;i++){
-	%>
-<li class="page-item  <%= (i==pageNum)? "active":"" %>">
-	<a class="page-link" href="javascript:list_go(<%=i %>);"><%=i %></a>
-</li>	
-	
-	<%	
-	} 
-	%>
+
+<c:set var="startPage" value="${pageMaker.getStartPage()}"/>
+<c:set var="endPage" value="${pageMaker.getEndPage()}"/>
+<c:set var="pageNum" value="${pageMaker.getCri().getPage()}"/>
+
+<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
+	<li class="page-item  ${ i==pageNum? 'active':''}">
+		<a class="page-link" href="javascript:list_go(${i});">${i}</a>
+	</li>	
+</c:forEach>
 						
 						
 						<li class="page-item">
@@ -243,6 +233,9 @@ h1{
 		var jobForm=$('#jobForm');
 		jobForm.find("[name='page']").val(page);
 		jobForm.find("[name='perPageNum']").val($('select[name="perPageNum"]').val());
+		jobForm.find("[name='searchType']").val($('select[name="searchType"]').val());
+		jobForm.find("[name='keyword']").val($('div.input-group>input[name="keyword"]').val());
+		
 		
 		jobForm.attr({
 			action:url,
@@ -257,11 +250,11 @@ h1{
 	
 
 <!-- jQuery -->
-<script src="<%=request.getContextPath() %>/resources/bootstrap/plugins/jquery/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/bootstrap/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src="<%=request.getContextPath() %>/resources/bootstrap/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/bootstrap/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
-<script src="<%=request.getContextPath() %>/resources/bootstrap/dist/js/adminlte.min.js"></script>	
+<script src="${pageContext.request.contextPath}/resources/bootstrap/dist/js/adminlte.min.js"></script>	
 	
 	
 	

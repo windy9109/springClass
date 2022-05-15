@@ -19,7 +19,7 @@ public class PageMaker {
 		startPage = (endPage - displayPageNum) +1;
 		realEndPage=(int)(Math.ceil(totalCount/(double)cri.getPerPageNum()));
 		
-		if(startPage <0) {
+		if(startPage < 0) {
 			startPage =1;
 			
 		}		

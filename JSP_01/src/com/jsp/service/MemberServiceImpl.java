@@ -25,31 +25,37 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<BoardVO> getMemberList() throws Exception {
 		SqlSession session = sqlSessionFactory.openSession(false);
-		List<BoardVO> memberList= null;
+		List<BoardVO> boardList= null;
 		try {
-			memberList = memberDAO.selectMemberList(session);
+			boardList = memberDAO.selectMemberList(session);
 			session.commit();
 		} catch (Exception e) {
 			session.rollback();
 			e.printStackTrace();
 			throw e;
 		}
-		return memberList;
+		finally {
+			if(session != null)session.close();
+		}
+		return boardList;
 	}
 
 	@Override
 	public List<BoardVO> getMemberList(Criteria cri) throws Exception {
 		SqlSession session = sqlSessionFactory.openSession(false);
-		List<BoardVO> memberList= null;
+		List<BoardVO> boardList= null;
 		try {
-			memberList = memberDAO.selectMemberList(session, cri);
+			boardList = memberDAO.selectMemberList(session, cri);
 			session.commit();
 		} catch (Exception e) {
 			session.rollback();
 			e.printStackTrace();
 			throw e;
 		}
-		return memberList;
+		finally {
+			if(session != null)session.close();
+		}
+		return boardList;
 	}
 
 	@Override
@@ -59,13 +65,13 @@ public class MemberServiceImpl implements MemberService {
 		try {
 			//처리.....
 			//리스트가져오기
-			List<BoardVO> memberList = memberDAO.selectMemberList(session, cri);
+			List<BoardVO> boardList = memberDAO.selectMemberList(session, cri);
 			PageMaker pageMaker = new PageMaker();
 			pageMaker.setCri(cri);
 			pageMaker.setTotalCount(memberDAO.selectMemberListCount(session));
 			
 			dataMap = new HashMap<String, Object>();
-			dataMap.put("memberList", memberList);
+			dataMap.put("boardList", boardList);
 			dataMap.put("pageMaker", pageMaker);
 			
 			session.commit();
@@ -73,6 +79,9 @@ public class MemberServiceImpl implements MemberService {
 			session.rollback();
 			e.printStackTrace();
 			throw e;
+		}
+		finally {
+			if(session != null)session.close();
 		}
 		return dataMap;
 	}

@@ -1,18 +1,18 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="com.jsp.command.PageMaker"%>
 <%@page import="java.util.Map"%>
 <%@page import="com.jsp.dto.MemberVO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%
-	Map<String,Object> dataMap 
-		= (Map<String,Object>)request.getAttribute("dataMap");
-	List<MemberVO> memberList 
-		= (List<MemberVO>)dataMap.get("memberList");
-	PageMaker pageMaker = (PageMaker)dataMap.get("pageMaker");
-	
-%>
+
+<c:set var="dataMap" value="${requestScope.dataMap}"/>
+<c:set var="memberList" value="${requestScope.dataMap.get('memberList')}"/>
+<c:set var="pageMaker" value="${requestScope.dataMap.get('pageMaker')}"/>
 
 
 <!DOCTYPE html>
@@ -29,9 +29,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/bootstrap/plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/bootstrap/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/dist/css/adminlte.min.css">
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -70,10 +70,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
    					 	<!-- sort num -->
 					  	<select class="form-control col-md-3" name="perPageNum" 
 					  			id="perPageNum" onchange="list_go(1)">					  		  		
-					  		<option value="10" <%= pageMaker.getCri().getPerPageNum() == 10? "selected":"" %>>정렬개수</option>
-					  		<option value="2" <%= pageMaker.getCri().getPerPageNum() == 2? "selected":"" %>>2개씩</option>
-					  		<option value="3" <%= pageMaker.getCri().getPerPageNum() == 3? "selected":"" %>>3개씩</option>
-					  		<option value="5" <%= pageMaker.getCri().getPerPageNum() == 5? "selected":"" %>>5개씩</option>
+					  		<option value="10" ${pageMaker.getCri().getPerPageNum() == 10? 'selected':''}>정렬개수</option>
+					  		<option value="2" ${pageMaker.getCri().getPerPageNum() == 2? 'selected':''}>2개씩</option>
+					  		<option value="3" ${pageMaker.getCri().getPerPageNum() == 3? 'selected':''}>3개씩</option>
+					  		<option value="5" ${pageMaker.getCri().getPerPageNum() == 5? 'selected':''}>5개씩</option>
 					  	</select>
 					  	
 					  	<!-- search bar -->
@@ -110,11 +110,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		                	<th>전화번호</th>
 		                	<th>등록날짜</th> <!-- yyyy-MM-dd  -->
 		               	</tr>
-		     			<%
-		     				if(memberList!=null) {
-		     					for(MemberVO member : memberList){
-		     						pageContext.setAttribute("member", member);
-		     					%>
+		            <c:choose>
+		            <c:when test="${memberList ne null}">
+					<c:forEach items="${memberList}" var="member" varStatus="status">
 		     					 <tr  onclick="" style="cursor:pointer;">
 		            		  	   	<td>사진</td>
 		            		  	   	<td>${member.id }</td>
@@ -123,22 +121,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				              		<td>${member.email }</td>
 		            		  	   	<td>${member.phone.replace('-','')  }</td>
 		            		  	   	<td>${member.regDate }</td>
+		            		  	   	<c:out value="${board.title}" />
+
 		            		  	  </tr>	
-		     					
-		     					<%
-		     					}
-		     			
-		     				}else{
-		     			%>
+		     		</c:forEach>
+		     		</c:when>
+		     		<c:otherwise>
 		     			<tr>
 	            			<td colspan="7" class="text-center">
 	            				해당내용이 없습니다.
 	            			</td>
 	            		</tr>
+		     		</c:otherwise>
+		     		</c:choose>
+
 		     			
-		     			<%
-		     				}
-		     			%>
 		     			
 		     			
 		            </table>
@@ -159,20 +156,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
 							</a>						
 						</li>
 						
-<% 
-	int startPage = pageMaker.getStartPage();
-	int endPage = pageMaker.getEndPage();
-	int pageNum = pageMaker.getCri().getPage();
+
 	
-	for(int i=startPage;i<endPage+1;i++){
-	%>
-<li class="page-item  <%= (i==pageNum)? "active":"" %>">
-	<a class="page-link" href="javascript:list_go(<%=i %>);"><%=i %></a>
-</li>	
+	<c:set var="startPage" value="${pageMaker.getStartPage()}"/>
+	<c:set var="endPage" value="${pageMaker.getEndPage()}"/>
+	<c:set var="pageNum" value="${pageMaker.getCri().getPage()}"/>
 	
-	<%	
-	} 
-	%>
+	<c:forEach var="i" begin="${startPage}" end="${endPage+1}" step="1" varStatus="status">
+	<li class="page-item ${ i == pageNum ? 'active':'' }">
+		<a class="page-link" href="javascript:list_go(${i});">${i}</a>
+	</li>		
+	</c:forEach>
 						
 						
 						<li class="page-item">
@@ -245,10 +239,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
-<script src="<%=request.getContextPath() %>/resources/bootstrap/plugins/jquery/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/bootstrap/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src="<%=request.getContextPath() %>/resources/bootstrap/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/bootstrap/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
-<script src="<%=request.getContextPath() %>/resources/bootstrap/dist/js/adminlte.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/bootstrap/dist/js/adminlte.min.js"></script>
 </body>
 </html>
