@@ -10,10 +10,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
-<c:set var="dataMap" value="${requestScope.dataMap}"/>
-<c:set var="memberList" value="${requestScope.dataMap.get('memberList')}"/>
-<c:set var="pageMaker" value="${requestScope.dataMap.get('pageMaker')}"/>
-
+<c:set var="memberList" value="${dataMap.memberList}"/>
+<c:set var="pageMaker" value="${dataMap.pageMaker}"/>
+<c:set var="cri" value="${pageMaker.getCri()}"/>
 
 <!DOCTYPE html>
 <!--
@@ -63,17 +62,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
    	<section class="content">
    		<div class="card">
    			<div class="card-header with-border">
-   				<button type="button" class="btn btn-primary" onclick="" >회원등록</button>
+   				<button type="button" class="btn btn-primary" onclick="OpenWindow('regist', '회원등록',800,800)" >회원등록</button>
    				<div id="keyword" class="card-tools" style="width:550px;">
    					 <div class="input-group row">
    					 	<!-- search bar -->
    					 	<!-- sort num -->
 					  	<select class="form-control col-md-3" name="perPageNum" 
 					  			id="perPageNum" onchange="list_go(1)">					  		  		
-					  		<option value="10" ${pageMaker.getCri().getPerPageNum() == 10? 'selected':''}>정렬개수</option>
-					  		<option value="2" ${pageMaker.getCri().getPerPageNum() == 2? 'selected':''}>2개씩</option>
-					  		<option value="3" ${pageMaker.getCri().getPerPageNum() == 3? 'selected':''}>3개씩</option>
-					  		<option value="5" ${pageMaker.getCri().getPerPageNum() == 5? 'selected':''}>5개씩</option>
+					  		<option value="10" ${cri.getPerPageNum() == 10? 'selected':''}>정렬개수</option>
+					  		<option value="2" ${cri.getPerPageNum() == 2? 'selected':''}>2개씩</option>
+					  		<option value="3" ${cri.getPerPageNum() == 3? 'selected':''}>3개씩</option>
+					  		<option value="5" ${cri.getPerPageNum() == 5? 'selected':''}>5개씩</option>
 					  	</select>
 					  	
 					  	<!-- search bar -->
@@ -158,11 +157,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 						
 
 	
-	<c:set var="startPage" value="${pageMaker.getStartPage()}"/>
-	<c:set var="endPage" value="${pageMaker.getEndPage()}"/>
+
 	<c:set var="pageNum" value="${pageMaker.getCri().getPage()}"/>
 	
-	<c:forEach var="i" begin="${startPage}" end="${endPage+1}" step="1" varStatus="status">
+	<c:forEach var="i" begin="${pageMaker.getStartPage()}" end="${pageMaker.getEndPage()}" step="1" varStatus="status">
 	<li class="page-item ${ i == pageNum ? 'active':'' }">
 		<a class="page-link" href="javascript:list_go(${i});">${i}</a>
 	</li>		
@@ -244,5 +242,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="${pageContext.request.contextPath}/resources/bootstrap/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="${pageContext.request.contextPath}/resources/bootstrap/dist/js/adminlte.min.js"></script>
+<!-- common -->
+<script src="${pageContext.request.contextPath}/resources/js/common.js"></script>
+
+
 </body>
 </html>
