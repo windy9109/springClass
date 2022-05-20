@@ -48,6 +48,64 @@ function picture_go(){
       picture.value="";
       return;
    };
+   
+   //업로드 변수 초기화
+   form.find('[name="checkUpload"]').val(0);
+	document.getElementById('inputFileName').value= picture.files[0].name;
+	//$('inputFileName').value.picture.files[0].name;
+	
+	if(picture.files && picture.files[0]){
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			$('div#pictureView').css(
+				{'background-image':'url('+e.target.result+')',
+				'background-position':'center',
+				'background-size':'cover',
+				//contain
+				'background-repeat':'no-repeat'
+					
+				}		
+			);
+		}
+		reader.readAsDataURL(picture.files[0]);
+		
+	}
+	
+	
+}
+
+function upload_go(){
+	//alert("upload btn click");
+	if(!$('input[name="pictureFile"]').val()){
+		alert("사진을 선택하세요");
+		$('input[name="pictureFile"]').click();
+		return;
+	}
+	if($('input[name="checkUpload"]').val() == 1){
+		alert("이미업로드 된 사진입니다.");
+		return;
+	}
+	
+	//form태그를 오브젝트화 시킴
+	//form tag -> object
+	//input tag -> attr
+	var formData = new FormData($('form[role="imageForm"]')[0]);
+	
+	$.ajax({
+		url: "picture",
+		data:formData,
+		type:"post",
+		processData:false,
+		contentType:false,
+		success:function(data){
+			
+		},
+		error:function(error){
+			
+		}
+		
+	})
+	
 }
 
 </script>
