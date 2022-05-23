@@ -9,4 +9,13 @@ public class MakeFileName {
 		return uuid + delimiter + fileName;
 		
 	}
+	
+	public static String parseFileNameUUID(String fileName, String delimiter) {
+		String[] uuidFileName = fileName.split(delimiter);
+		return uuidFileName[uuidFileName.length - 1];
+		
+	}
+	
+	
+	
 }

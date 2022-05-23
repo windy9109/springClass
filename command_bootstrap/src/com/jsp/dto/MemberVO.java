@@ -1,5 +1,7 @@
 package com.jsp.dto;
 
+import java.util.Date;
+
 public class MemberVO {
 
 	
@@ -9,7 +11,7 @@ public class MemberVO {
 	private String phone;
 	private String email;
 	private String picture;
-	private String regDate;
+	private Date regDate;
 	private String authority;
 	private String enabled;
 	private String register;
@@ -61,11 +63,11 @@ public class MemberVO {
 	public void setPicture(String picture) {
 		this.picture = picture;
 	}
-	public String getRegDate() {
+	public Date getRegDate() {
 		return regDate;
 	}
-	public void setRegDate(String regDate) {
-		this.regDate = regDate;
+	public void setRegDate(Date date) {
+		this.regDate = date;
 	}
 	public String getAuthority() {
 		return authority;

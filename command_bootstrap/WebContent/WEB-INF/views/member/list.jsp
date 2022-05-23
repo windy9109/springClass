@@ -112,7 +112,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		            <c:choose>
 		            <c:when test="${memberList ne null}">
 					<c:forEach items="${memberList}" var="member" varStatus="status">
-		     					 <tr  onclick="" style="cursor:pointer;">
+		     					 <tr onclick="OpenWindow('detail?id=${member.id}','회원상세', 700,800);" style="cursor:pointer;">
 		            		  	   	<td>사진</td>
 		            		  	   	<td>${member.id }</td>
 				              		<td>${member.pwd }</td>
@@ -233,6 +233,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   </footer>
 </div>
 <!-- ./wrapper -->
+
+
 
 <!-- REQUIRED SCRIPTS -->
 

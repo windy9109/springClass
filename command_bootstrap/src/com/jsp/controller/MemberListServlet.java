@@ -26,12 +26,13 @@ public class MemberListServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String url ="/WEB-INF/views/member/list.jsp";
+
 		String pageParam = request.getParameter("page");
 		String perPageNumParam = request.getParameter("perPageNum");
 		
 		Criteria cri = new Criteria();
 		boolean criFlag = true;
-		criFlag = criFlag && pageParam != null
+				criFlag = criFlag && pageParam != null
 				&& !pageParam.isEmpty()
 				&& perPageNumParam != null
 				&& !perPageNumParam.isEmpty();
@@ -44,11 +45,13 @@ public class MemberListServlet extends HttpServlet {
 				return; //값이 없는 메소드는 돌아가라
 			}
 		}
+	
 		
 		try {
 			Map<String, Object> dataMap = memberService.getMemberListforPage(cri);
 			//List<MemberVO> memberList = memberService.getMemberList(cri);
 			request.setAttribute("dataMap", dataMap);
+			System.out.println(dataMap);
 		} catch (Exception e) {
 			//에러
 			url="/WEB-INF/views/error/500.jsp";

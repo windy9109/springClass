@@ -1,6 +1,7 @@
 package com.jsp.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.Reader;
 import java.util.Properties;
 
@@ -14,14 +15,14 @@ static {
 	try {
 		Reader reader = Resources.getResourceAsReader(resource);
 		properties.load(reader);
-	} catch (Exception e) {
+	} catch (IOException e) {
 		e.printStackTrace();
 	}
 }
 
 
 	public static String getUploadPath(String key) {
-		String uploadPath=null;
+		String uploadPath = null;
 		uploadPath = properties.getProperty(key);
 		uploadPath = uploadPath.replace("/", File.separator);
 		

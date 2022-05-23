@@ -16,10 +16,18 @@ import com.jsp.dto.MemberVO;
 
 public class MemberServiceImpl implements MemberService{
 	
-	private SqlSessionFactory sqlSessionFactory
-		=new OracleMybatisSqlSessionFactory();
+	private SqlSessionFactory sqlSessionFactory = new OracleMybatisSqlSessionFactory();
 	private MemberDAO memberDAO = new MemberDAOImpl();
 	
+	
+	public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
+		this.sqlSessionFactory = sqlSessionFactory;
+	}
+
+	public void setMemberDAO(MemberDAO memberDAO) {
+		this.memberDAO = memberDAO;
+	}
+
 	
 	@Override
 	public List<MemberVO> getMemberList() throws Exception {
