@@ -93,7 +93,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		          <div class="card-footer" style="padding:5px 0;" >
 		          		<div class="row">
 			          		<div class="col-sm-3 text-center">
-			          			<button type="button" onclick="" id="modifyBtn" class="btn btn-warning ">수 정</button>
+			          			<button type="button" onclick="OpenWindow('modifyForm.do?id=${member.id}','회원상세', 700,800);" id="modifyBtn" class="btn btn-warning ">수 정</button>
 			          		</div>
 		          		
 			          		<div class="col-sm-3 text-center">

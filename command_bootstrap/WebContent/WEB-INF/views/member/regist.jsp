@@ -92,7 +92,7 @@ function upload_go(){
 	var formData = new FormData($('form[role="imageForm"]')[0]);
 	
 	$.ajax({
-		url: "picture",
+		url: "picture.do",
 		data:formData,
 		type:"post",
 		processData:false,
@@ -124,7 +124,7 @@ function idCheck_go(){
 		
 	}
 	$.ajax({
-		url: "idCheck?id="+input_ID.val().trim(),
+		url: "idCheck.do?id="+input_ID.val().trim(),
 		method : "get",
 		success: function(result){
 			if(result.toUpperCase() =="DUPLICATED"){
@@ -170,7 +170,7 @@ function regist_go(){
 	}
 	
 	var form = $('form[role="form"]');
-	form.attr({"method":"post","action":"regist"});
+	form.attr({"method":"post","action":"regist.do"});
 	form.submit();
 }
 </script>

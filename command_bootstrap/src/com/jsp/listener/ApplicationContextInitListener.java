@@ -1,6 +1,7 @@
 package com.jsp.listener;
 
 import java.io.File;
+import java.lang.reflect.Method;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
@@ -14,7 +15,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.jsp.context.AppilcationContext;
+import com.jsp.context.ApplicationContext;
 
 public class ApplicationContextInitListener implements ServletContextListener {
     public void contextDestroyed(ServletContextEvent sce)  { 
@@ -48,7 +49,7 @@ public class ApplicationContextInitListener implements ServletContextListener {
 			
 			NodeList beans = root.getElementsByTagName("bean"); 
 			Map<String, Object> applicationContext = 
-					AppilcationContext.getApplicationContext(); // application contex
+					ApplicationContext.getApplicationContext(); // application contex
 			for (int i = 0; i < beans.getLength(); i++) {
 				Node bean = beans.item(i);
 				if (bean.getNodeType() == Node.ELEMENT_NODE) {
@@ -56,12 +57,56 @@ public class ApplicationContextInitListener implements ServletContextListener {
 					String id = ele.getAttribute("id");
 					String classType = ele.getAttribute("class");
 					
+					//System.out.printf("id : %s,class=%s\n",id,classType);
+					
+					// map instance put
 					Class<?> cls = Class.forName(classType);
-					Object targetObj = cls.newInstance(); 
+					Object targetObj = cls.newInstance(); //single tone
 					applicationContext.put(id, targetObj);
 					
+					//System.out.println("id : " + id + ", class : " + targetObj);
+										
+				}
+			}
+			
+
+			//의존 주입
+			for (int i = 0; i < beans.getLength(); i++) {
+				Node bean = beans.item(i);
+				if (bean.getNodeType() == Node.ELEMENT_NODE) {
+					Element eleBean = (Element)bean;
 					
-					System.out.printf("id :"+ id+", class: "+ targetObj);
+					NodeList properties = bean.getChildNodes();
+					for (int j = 0; j < properties.getLength(); j++) {
+						Node property = properties.item(j);
+						if(!property.getNodeName().equals("property")) continue;
+						
+						if (property.getNodeType() == Node.ELEMENT_NODE) {
+							Element ele = (Element) property;
+							String name = ele.getAttribute("name");
+							String ref = ele.getAttribute("ref-value");
+							
+							//System.out.printf("name = %s,ref-value=%s\n",name,ref);
+							String setMethodName = "set" + name.substring(0, 1).toUpperCase() 
+									+ name.substring(1);
+							
+							String className = eleBean.getAttribute("class");
+							Class<?> classType = Class.forName(className);
+
+							Method[] methods = classType.getMethods();
+							if(methods!=null) for (Method method : methods) {
+								// 의존성 여부 확인
+								if (method.getName().equals(setMethodName)) {
+									method.invoke(applicationContext.get(eleBean.getAttribute("id")),
+											applicationContext.get(ref));
+									
+									System.out.println("[invoke]"
+											+applicationContext.get(eleBean.getAttribute("id"))
+											+":"+applicationContext.get(ref));
+								}
+							}
+						}
+					}
 				}
 			}
 			

@@ -62,7 +62,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
    	<section class="content">
    		<div class="card">
    			<div class="card-header with-border">
-   				<button type="button" class="btn btn-primary" onclick="OpenWindow('regist', '회원등록',800,800)" >회원등록</button>
+   				<button type="button" class="btn btn-primary" onclick="OpenWindow('registForm.do', '회원등록',800,800)" >회원등록</button>
    				<div id="keyword" class="card-tools" style="width:550px;">
    					 <div class="input-group row">
    					 	<!-- search bar -->
@@ -88,7 +88,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 										placeholder="검색어를 입력하세요." value="${param.keyword}"/>
 						<span class="input-group-append">
 							<button class="btn btn-primary" type="button" 
-									id="searchBtn" data-card-widget="search" onclick="list_go(-1);">
+									id="searchBtn" data-card-widget="search" onclick="list_go(1);">
 								<i class="fa fa-fw fa-search"></i>
 							</button>
 						</span>
@@ -112,8 +112,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		            <c:choose>
 		            <c:when test="${memberList ne null}">
 					<c:forEach items="${memberList}" var="member" varStatus="status">
-		     					 <tr onclick="OpenWindow('detail?id=${member.id}','회원상세', 700,800);" style="cursor:pointer;">
-		            		  	   	<td>사진</td>
+		     					 <tr onclick="OpenWindow('detail.do?id=${member.id}','회원상세', 700,800);" style="cursor:pointer;">
+		            		  	   	<td>
+		            		  	   		<span class="manPicture" data-id="${member.id }" style="display:block;width:40px;height:40px;margin:0 auto;"></span>
+		            		  	   	</td>
 		            		  	   	<td>${member.id }</td>
 				              		<td>${member.pwd }</td>
 				              		<td>${member.name }
@@ -196,7 +198,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   
   <script>
 	function list_go(page,url){
-		if(!url) url="list";
+		if(!url) url="list.do";
 		
 		var jobForm=$('#jobForm');
 		jobForm.find("[name='page']").val(page);
@@ -212,6 +214,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		
 	}
   </script>
+  
+  
+<script>
+window.onload =function(){
+	MemberPictureThumb('<%=request.getContextPath() %>');
+}
+</script>
+
+
  <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->

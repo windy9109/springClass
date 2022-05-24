@@ -1,7 +1,7 @@
 package com.jsp.command;
 
-public class SearcjCriteria  extends Criteria{
-
+public class SearchCriteria extends Criteria {
+	
 	private String keyword;
 	private String searchType;
 	
@@ -17,8 +17,6 @@ public class SearcjCriteria  extends Criteria{
 	public void setSearchType(String searchType) {
 		this.searchType = searchType;
 	}
-	
-	
 	
 	
 }
