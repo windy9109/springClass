@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.Properties;
 
+import javax.xml.ws.Response;
+
 import org.apache.ibatis.io.Resources;
 
 public class GetUploadPath {
@@ -27,7 +29,9 @@ public class GetUploadPath {
 		
 		uploadPath=properties.getProperty(key);
 		uploadPath=uploadPath.replace("/",File.separator);
-		
+
 		return uploadPath;
+		
+		
 	}
 }

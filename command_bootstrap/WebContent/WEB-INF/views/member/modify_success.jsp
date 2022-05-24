@@ -2,7 +2,11 @@
     pageEncoding="UTF-8"%>
 <script>
 
-alert("수정에 성공했습니다.");
-window.opener.location.href="<%=request.getContextPath()%>/member/list.do";
-window.close();
+alert("수정에 성공했습니다.");   
+
+location.href = "<%=request.getContextPath()%>/member/detail.do?id=${id}";
+
+
+
+
 </script>

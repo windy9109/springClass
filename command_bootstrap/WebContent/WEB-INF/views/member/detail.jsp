@@ -19,6 +19,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/bootstrap/plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/bootstrap/dist/css/adminlte.min.css">
+<script>
+function delete_go(){
+	var result = confirm("정말 삭제하시겠습니까?");
+	if(result){
+		/* var form = $('form[role="form"]');
+		form.attr({"method":"post","action":"modify.do"});
+		form.submit();	 */	
+		location.href = "<%=request.getContextPath()%>/member/remove.do?id=${member.id}";
+		
+		
+	}else{
+		
+	}
+
+}
+
+</script>
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -97,7 +115,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			          		</div>
 		          		
 			          		<div class="col-sm-3 text-center">
-			          			<button type="button" onclick="" id="deleteBtn" class="btn btn-danger" >삭 제</button>
+			          			<button type="button" onclick="delete_go();" id="deleteBtn" class="btn btn-danger" >삭 제</button>
 			          		</div>
 		          			
 			          		<div class="col-sm-3 text-center">

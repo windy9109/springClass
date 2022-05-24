@@ -10,8 +10,8 @@ import com.jsp.controller.HttpRequestParameterAdapter;
 import com.jsp.dto.MemberVO;
 import com.jsp.service.MemberService;
 
-public class MemberModifyAction implements Action {
-
+public class MemberRemoveAction implements Action {
+	
 	private MemberService memberService;
 	public void setSearchMemberService(MemberService memberService) {
 		this.memberService=memberService;
@@ -19,10 +19,8 @@ public class MemberModifyAction implements Action {
 	
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		request.setCharacterEncoding("utf-8");
 		//화면
-		String id = request.getParameter("id");
-		String url="/member/modify_success";
+		String url="/member/remove_success";
 				
 		//입력
 		try {
@@ -34,16 +32,14 @@ public class MemberModifyAction implements Action {
 			MemberVO member = command.toMemberVO();
 					
 			//처리
-			memberService.modify(member);
-			request.setAttribute("id", id);
+			memberService.remove(member.getId());
 		
 		}catch(Exception e) {
 			e.printStackTrace();
 			//exception 처리.....
-			url="/member/modify_fail";
+			url="/member/remove_fail";
 		}
 		
 		return url;
 	}
-
 }

@@ -66,10 +66,10 @@
 		pwd=#{pwd},email=#{email},phone=#{phone},name=#{name},
 		picture=#{picture}
 		
-		<if test="authority != null">
+ 		<if test="authority != null">
 			,authority=#{authority}
 		</if>
-		
+	
 		where id=#{id}
 	</update>
 	<update id="deleteMember" parameterType="str" >

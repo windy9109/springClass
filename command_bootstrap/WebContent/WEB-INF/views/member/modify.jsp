@@ -29,14 +29,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
   
   <script type="text/javascript">
 
+
+
+	  
+
+  
 function changePicture_go(){
 	//alert("file change");
 	
    var form = $('form[role="imageForm"]');
    var picture = form.find('[name=pictureFile]')[0];
-   
+   alert(form.value+"\n"+picture.value);
    //이미지 확장자 jpg 확인
    var fileFormat = picture.value.substr(picture.value.lastIndexOf(".")+1).toUpperCase();
+   alert(fileFormat)
 	if(!(fileFormat=="JPG" || fileFormat=="JPEG")){
    		alert("이미지는 jpg/jpeg 형식만 가능합니다.");
    		picture.value="";      
@@ -201,19 +207,19 @@ function modify_go(){
   	</section> 
   <!-- Main content -->
   <section class="content register-page" >
-	<form role="form" class="form-horizontal" action="modify.do" method="post" enctype="multipart/form-data">	
+	<form role="form" class="form-horizontal" action="modify.do" method="post">	
 		<div class="card" style="min-width:450px;">	
 			<div class="card-body">	
 				<div class="row">					
 					<input type="hidden" name="oldPicture"  value=""/>
-					<input type="file" id="inputFile" onchange="changePicture_go();" name="picture" style="display:none" />
+					<input type="hidden" name="picture" />
 					<div class="input-group col-md-12">
 						<div class="col-md-12" style="text-align: center;">
 							<div class="manPicture mailbox-attachment-icon has-img" data-id="${member.id }" id="pictureView" style="border: 1px solid green; height: 200px; width: 140px; margin: 0 auto; margin-bottom:5px;"></div>														
 							<div class="input-group input-group-sm">
-							
+							<button type="button" class="btn btn-info btn-sm btn-append" onclick="upload_go();">업로드</button>	
 								<label for="inputFile" class=" btn btn-warning btn-sm btn-flat input-group-addon">사진변경</label>
-								<input id="inputFileName" class="form-control" type="text" name="tempPicture" disabled
+								<input id="inputFileName" class="form-control inputFileName_picture" type="text" name="tempPicture" disabled
 									value="${member.picture }"/>
 								<input id="picture" class="form-control" type="hidden" name="uploadPicture" />
 							</div>						
@@ -282,11 +288,10 @@ function modify_go(){
 			</div>
 		</div>
 	</form>
-  </section>
     <!-- /.content -->
   </div>
   <form role="imageForm" action="upload/picture" method="post" enctype="multipart/form-data" />
-	<input id="inputFile" name="pictureFile" type="file" class="form-control" style="display:none;" onchange="picture_go();" />
+	<input id="inputFile" name="pictureFile" type="file" class="form-control" style="display:none;" onchange="changePicture_go();" />
 	<input id="oldFile" type="hidden" name="oldPicture" value="" />
 	<input type="hidden" name="checkUpload" value="0" />	
 </form>

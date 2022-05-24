@@ -33,9 +33,11 @@ function picture_go(){
 	
    var form = $('form[role="imageForm"]');
    var picture = form.find('[name=pictureFile]')[0];
-   
+   //alert(form+"\n"+picture);
+   alert(form.value+"\n"+picture.value);
    //이미지 확장자 jpg 확인
    var fileFormat = picture.value.substr(picture.value.lastIndexOf(".")+1).toUpperCase();
+   alert(fileFormat);
 	if(!(fileFormat=="JPG" || fileFormat=="JPEG")){
    		alert("이미지는 jpg/jpeg 형식만 가능합니다.");
    		picture.value="";      
