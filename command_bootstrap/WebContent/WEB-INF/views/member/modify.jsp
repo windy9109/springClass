@@ -151,7 +151,7 @@ function idCheck_go(){
 	});
 }
 
-function modify_go(){
+function modify_go(leg){
 	//alert("resist btn click");
 	
 	var uploadCheck = $('input[name="checkUpload"]').val();
@@ -176,8 +176,17 @@ function modify_go(){
 		return;
 	}
 	
+	var pEl = document.querySelector(".inputFileName_picture").value;
+	if( pEl == leg){
+		var str0 = "modify2.do";
+	}else{
+		var str0 = "modify.do";
+	}
+	
+
+	
 	var form = $('form[role="form"]');
-	form.attr({"method":"post","action":"modify.do"});
+	form.attr({"method":"post","action": str0 });
 	form.submit();
 }
 </script>
@@ -220,7 +229,7 @@ function modify_go(){
 							<button type="button" class="btn btn-info btn-sm btn-append" onclick="upload_go();">업로드</button>	
 								<label for="inputFile" class=" btn btn-warning btn-sm btn-flat input-group-addon">사진변경</label>
 								<input id="inputFileName" class="form-control inputFileName_picture" type="text" name="tempPicture" disabled
-									value="${member.picture }"/>
+									value="${member.picture}"/>
 								<input id="picture" class="form-control" type="hidden" name="uploadPicture" />
 							</div>						
 						</div>												
@@ -279,7 +288,7 @@ function modify_go(){
                 </div>  
 				
 				<div class="card-footer row" style="margin-top: 0; border-top: none;">						
-					<button type="button" id="modifyBtn"  onclick="modify_go();"
+					<button type="button" id="modifyBtn"  onclick="modify_go('${member.picture}');"
 						class="btn btn-warning col-sm-4 text-center" >수정하기</button>
 					<div class="col-sm-4"></div>
 					<button type="button" id="cancelBtn" onclick="history.go(-1);"

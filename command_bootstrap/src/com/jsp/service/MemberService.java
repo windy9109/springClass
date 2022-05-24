@@ -24,6 +24,9 @@ public interface MemberService {
 	//회원수정
 	public void modify(MemberVO member)throws Exception;
 	
+	//회원수정(사진동일)
+	public void modify2(MemberVO member)throws Exception;
+	
 	//회원탈퇴
 	public void remove(String id)throws Exception; 
 	

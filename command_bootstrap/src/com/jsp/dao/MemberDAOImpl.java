@@ -66,6 +66,13 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 
 	@Override
+	public void updateMember2(SqlSession session, MemberVO member) throws SQLException {
+		session.update("Member-Mapper.updateMember2",member);
+
+	}
+	
+	
+	@Override
 	public void deleteMember(SqlSession session, String id) throws SQLException {
 		session.update("Member-Mapper.deleteMember",id);		
 	}

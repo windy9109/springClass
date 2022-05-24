@@ -134,6 +134,20 @@ public class MemberServiceImpl implements MemberService{
 
 	}
 
+	
+	@Override
+	public void modify2(MemberVO member) throws Exception {
+		SqlSession session = sqlSessionFactory.openSession();
+		try {
+
+			memberDAO.updateMember2(session, member);
+		} finally {
+			session.close();
+		}
+
+	}
+	
+	
 	@Override
 	public void remove(String id) throws Exception {
 		SqlSession session = sqlSessionFactory.openSession();
