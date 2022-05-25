@@ -1,27 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
-<html lang="en">
-<head>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Starter</title>
-
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/bootstrap/plugins/fontawesome-free/css/all.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/bootstrap/dist/css/adminlte.min.css">
-</head>
-
-<body>
+ <%@ include file="/WEB-INF/include/header.jsp" %>
 
   <!-- Content Wrapper. Contains page content -->
   <div>
@@ -29,7 +8,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
   
   <script type="text/javascript">
 
+  function CloseWindow(){
+	  window.close();
+	 
 
+	  
+  }
 
 	  
 
@@ -56,9 +40,35 @@ function changePicture_go(){
       return;
    };
    
+   
+	var formData = new FormData($('form[role="imageForm"]')[0]);
+	
+	$.ajax({
+		url: "picture.do",
+		data:formData,
+		type:"post",
+		processData:false,
+		contentType:false,
+		//data는 받은 파일명
+		success:function(data){
+			//업로드 확인변수 세팅
+			$('input[name="checkUpload"]').val(1);
+			//저장된 파일명 저장.
+			$('input#oldFile').val(data);  //변경시 삭제될 파일명
+			$('form[role="form"] input[name="picture"]').val(data);
+			//alert("사진이 업로드 되었습니다.");
+		},
+		error:function(error){
+			alert("현재 사진 업로드가 불가합니다. \n 관리자에게 연락바랍니다.");
+		}
+		
+	});
+	
+	
+   
    //업로드 변수 초기화
-   form.find('[name="checkUpload"]').val(0);
-	document.getElementById('inputFileName').value= picture.files[0].name;
+    form.find('[name="checkUpload"]').val(0);
+	document.getElementById('inputFileName').value = picture.files[0].name;
 	//$('inputFileName').value.picture.files[0].name;
 	
 	if(picture.files && picture.files[0]){
@@ -83,43 +93,14 @@ function changePicture_go(){
 
 function upload_go(){
 	//alert("upload btn click");
-	if(!$('input[name="pictureFile"]').val()){
-		alert("사진을 선택하세요");
-		$('input[name="pictureFile"]').click();
-		return;
-	}
-	if($('input[name="checkUpload"]').val() == 1){
-		alert("이미업로드 된 사진입니다.");
-		return;
-	}
+
 	
 	//form태그를 오브젝트화 시킴
 	//form tag -> object
 	//input tag -> attr
-	var formData = new FormData($('form[role="imageForm"]')[0]);
-	
-	$.ajax({
-		url: "picture.do",
-		data:formData,
-		type:"post",
-		processData:false,
-		contentType:false,
-		//data는 받은 파일명
-		success:function(data){
-			//업로드 확인변수 세팅
-			$('input[name="checkUpload"]').val(1);
-			//저장된 파일명 저장.
-			$('input#oldFile').val(data);  //변경시 삭제될 파일명
-			$('form[role="form"] input[name="picture"]').val(data);
-			alert("사진이 업로드 되었습니다.");
-		},
-		error:function(error){
-			alert("현재 사진 업로드가 불가합니다. \n 관리자에게 연락바랍니다.");
-		}
-		
-	});
 	
 }
+
 var checkedID ="";
 function idCheck_go(){
 	var input_ID =$('input[name="id"]');
@@ -153,6 +134,16 @@ function idCheck_go(){
 
 function modify_go(leg){
 	//alert("resist btn click");
+/* 	if(!$('input[name="pictureFile"]').val()){
+		alert("사진을 선택하세요");
+		$('input[name="pictureFile"]').click();
+		return;
+	} */
+/* 	if($('input[name="checkUpload"]').val() == 1){
+		alert("이미업로드 된 사진입니다.");
+		return;
+	} */
+	
 	
 	var uploadCheck = $('input[name="checkUpload"]').val();
 /* 	if(uploadCheck == "0"){
@@ -226,7 +217,7 @@ function modify_go(leg){
 						<div class="col-md-12" style="text-align: center;">
 							<div class="manPicture mailbox-attachment-icon has-img" data-id="${member.id }" id="pictureView" style="border: 1px solid green; height: 200px; width: 140px; margin: 0 auto; margin-bottom:5px;"></div>														
 							<div class="input-group input-group-sm">
-							<button type="button" class="btn btn-info btn-sm btn-append" onclick="upload_go();">업로드</button>	
+							<!-- <button type="button" class="btn btn-info btn-sm btn-append" onclick="upload_go();">업로드</button> -->	
 								<label for="inputFile" class=" btn btn-warning btn-sm btn-flat input-group-addon">사진변경</label>
 								<input id="inputFileName" class="form-control inputFileName_picture" type="text" name="tempPicture" disabled
 									value="${member.picture}"/>
@@ -306,22 +297,10 @@ function modify_go(leg){
 </form>
   
   <script>
-window.onload =function(){
+window.onload = function(){
 	MemberPictureThumb('<%=request.getContextPath() %>');
 }
 </script>
 
-<!-- jQuery -->
-<script src="<%=request.getContextPath() %>/resources/bootstrap/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="<%=request.getContextPath() %>/resources/bootstrap/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="<%=request.getContextPath() %>/resources/bootstrap/dist/js/adminlte.min.js"></script>
-<!-- common -->
-<script src="<%=request.getContextPath() %>/resources/js/common.js" ></script>
-
-
-
-  </body>
-  </html>
+ <%@ include file="/WEB-INF/include/footer.jsp" %>
  

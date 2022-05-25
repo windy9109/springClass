@@ -2,6 +2,7 @@ package com.jsp.action.member;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.jsp.action.Action;
 import com.jsp.command.MemberModfiyCommand;
@@ -21,6 +22,7 @@ public class MemberRemoveAction implements Action {
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		//화면
 		String url="/member/remove_success";
+		MemberVO member = null;
 				
 		//입력
 		try {
@@ -29,7 +31,7 @@ public class MemberRemoveAction implements Action {
 			
 			MemberModfiyCommand command = HttpRequestParameterAdapter.execute(request,
 					MemberModfiyCommand.class );
-			MemberVO member = command.toMemberVO();
+			member = command.toMemberVO();
 					
 			//처리
 			memberService.remove(member.getId());
@@ -40,6 +42,20 @@ public class MemberRemoveAction implements Action {
 			url="/member/remove_fail";
 		}
 		
+		
+		// DB처리
+		memberService.remove(member.getId());
+		
+		HttpSession session = request.getSession();
+		MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+		
+		if (loginUser!=null && member.getId().equals(loginUser.getId())) {
+			session.invalidate();
+		}
+		
+		request.setAttribute("member", member);
+		
 		return url;
+		
 	}
 }

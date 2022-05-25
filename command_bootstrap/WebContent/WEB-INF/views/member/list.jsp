@@ -1,38 +1,12 @@
-<%@page import="java.text.DecimalFormat"%>
-<%@page import="com.jsp.command.PageMaker"%>
-<%@page import="java.util.Map"%>
-<%@page import="com.jsp.dto.MemberVO"%>
-<%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
-
+ <%@ include file="/WEB-INF/include/header.jsp" %>
 <c:set var="memberList" value="${dataMap.memberList}"/>
 <c:set var="pageMaker" value="${dataMap.pageMaker}"/>
 <c:set var="cri" value="${pageMaker.getCri()}"/>
 
-<!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Starter</title>
 
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/plugins/fontawesome-free/css/all.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/dist/css/adminlte.min.css">
-</head>
-<body class="hold-transition sidebar-mini">
+
 <div class="wrapper">
   <div >
 	 <!-- Main content -->
@@ -246,18 +220,7 @@ window.onload =function(){
 <!-- ./wrapper -->
 
 
-
-<!-- REQUIRED SCRIPTS -->
-
-<!-- jQuery -->
-<script src="${pageContext.request.contextPath}/resources/bootstrap/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="${pageContext.request.contextPath}/resources/bootstrap/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="${pageContext.request.contextPath}/resources/bootstrap/dist/js/adminlte.min.js"></script>
-<!-- common -->
-<script src="${pageContext.request.contextPath}/resources/js/common.js"></script>
-
-
-</body>
-</html>
+ <%@ include file="/WEB-INF/include/footer.jsp" %>
+ 
+ 
+ 

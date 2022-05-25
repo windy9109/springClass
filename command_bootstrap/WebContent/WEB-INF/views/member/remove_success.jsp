@@ -5,4 +5,5 @@
 alert("삭제성공");
 window.opener.location.href="<%=request.getContextPath()%>/member/list.do";
 window.close();
+
 </script>
