@@ -31,3 +31,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/dist/css/adminlte.min.css">
 </head>
 <body class="hold-transition sidebar-mini">
+
+
+

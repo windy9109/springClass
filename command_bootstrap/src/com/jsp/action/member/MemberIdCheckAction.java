@@ -18,7 +18,7 @@ public class MemberIdCheckAction implements Action {
 	
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-String url=null;
+		String url=null;
 		
 		String resultStr = "";
 		
