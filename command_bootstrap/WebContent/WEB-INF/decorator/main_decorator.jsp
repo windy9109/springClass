@@ -21,6 +21,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/bootstrap/plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/bootstrap/dist/css/adminlte.min.css">
+
   
   <decorator:head />
   
@@ -40,14 +41,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <%@ include file="./main/footer.jsp" %>	
 </div>
 
-<!-- jQuery -->
-<script src="<%=request.getContextPath() %>/resources/bootstrap/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="<%=request.getContextPath() %>/resources/bootstrap/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="<%=request.getContextPath() %>/resources/bootstrap/dist/js/adminlte.min.js"></script>
-
-<script src="<%=request.getContextPath() %>/resources/js/common.js" ></script>
 
 <script>
 	$('div.wrapper').css({

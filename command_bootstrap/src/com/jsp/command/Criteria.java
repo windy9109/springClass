@@ -34,6 +34,8 @@ public class Criteria {
 	public int getStartRowNum() {
 		return startRowNum;
 	}
+	
+	
 	public void setStartRowNum() {
 		this.startRowNum = (this.page-1)*perPageNum;
 	}
