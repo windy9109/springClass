@@ -73,60 +73,35 @@
     </section>
     <!-- /.content -->
     
-    <script type="text/javascript">
-    	window.onload=function(){
-    		$('#content').summernote({
-    			placefolder:'여기에 내용을 적으세요',
-    			lang:'ko-KR',
-    			height:250,
-    			disableResizeEditor:true,
-    			callbacks:{
-    				onUmageUpload: function(files, editor, welEditable) {
-    					for(var file of files){
-	    					if(file.name.substring(file.name.lastIndexOf(".")+1).toUpperCase() != "JPG"){
-	    						alert("jpg형식만 가능합니다.");
-	    						return;
-	    					}
-	    					if(file.size > 1024*1024*5){
-	    						alert("이미지는 5MB 미만입니다.");
-	    						return;
-	    					}
-    					}
-						
-					}
-    		
-    		
-    		
-    		
-    			}
-    			
-    		});
-    	}
-    	</script>
-    	
-    	<script>
-    		function sendFile(file, el){
-    			var form_data = new FormData();
-    			form_data.append("file", file);
-    			$.ajax({
-    				url: '<%= request.getContextPath() %>/uploadImg.do',
-    				data: form_data,
-    				type: "POST",
-    				contentType: false,
-    				processData: false,
-    				success: function(img_url){
-    					$(el).summernote('editor.inserImage', img_url);
-    				},
-    				error: funtion(){
-    					alert(file.name+"업로드에 실패했습니다.");
-    				}
-    			});
-    		}
-    	</script>
+    
+<script>
+	window.onload=function(){
+		summernote_go($('textarea[name="content"]'),'<%=request.getContextPath()%>');	
+	}
+</script>
 
+<script>
 
-
+function regist_go(){
+//var form = $('form[role="form"]')[0];
+	var form = document.registForm;
+	if(form.title.value==""){
+		alert("제목은 필수입니다.");
+		return;
+	}
+	
+	form.submit();
+}
+</script>    
 </body>
+
+
+
+
+
+
+
+
 
 
        

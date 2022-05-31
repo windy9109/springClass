@@ -31,10 +31,6 @@ public class IndexPageAction implements Action {
 			List<MenuVO> menuList = menuService.getMainMenuList();			
 			request.setAttribute("menuList", menuList);
 			
-			List<MenuVO> subMenuList = menuService.getSubMenuList(mCode);			
-			request.setAttribute("subMenuList", subMenuList);
-			
-			
 			// iframe 상태유지
 			MenuVO menu = menuService.getMenuByMcode(mCode);
 			request.setAttribute("menu", menu);

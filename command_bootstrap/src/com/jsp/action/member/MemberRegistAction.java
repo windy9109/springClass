@@ -26,7 +26,7 @@ public class MemberRegistAction implements Action {
 			
 			request.setCharacterEncoding("utf-8");
 			
-			MemberRegistCommand command = HttpRequestParameterAdapter.execute(request,
+			MemberRegistCommand command =HttpRequestParameterAdapter.execute(request,
 							MemberRegistCommand.class );
 			MemberVO member = command.toMemberVO();
 					

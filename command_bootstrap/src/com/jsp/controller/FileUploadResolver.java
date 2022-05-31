@@ -36,8 +36,7 @@ public class FileUploadResolver {
 				}
 				uploadFileList.add(storeFile);
 			}
-		
-		System.out.println(uploadFileList);
+
 		return uploadFileList;
 	}
 }

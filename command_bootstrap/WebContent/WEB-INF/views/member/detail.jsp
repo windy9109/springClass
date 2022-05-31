@@ -1,29 +1,9 @@
- <%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@ include file="/WEB-INF/include/header.jsp" %>
- 
-<script>
-function delete_go(){
-	var result = confirm("정말 삭제하시겠습니까?");
-	if(result){
-		/* var form = $('form[role="form"]');
-		form.attr({"method":"post","action":"modify.do"});
-		form.submit();	 */	
-		location.href = "<%=request.getContextPath()%>/member/remove.do?id=${member.id}";
-		
-		
-	}else{
-		
-	}
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-}
+<%-- <%@ include file="/WEB-INF/include/header.jsp" %> --%>
 
-
-function CloseWindow(){
-	location.href = "<%=request.getContextPath()%>/member/remove.do?id=${member.id}";
-}
-
-</script>
 <div class="wrapper">
   <div >
   	 <section class="content-header">
@@ -57,7 +37,7 @@ function CloseWindow(){
 	        	<div class="register-card-body" >
 	            	<div class="row"  style="height:200px;">
 						<div class="mailbox-attachments clearfix col-md-12" style="text-align: center;">							
-							<div id="pictureView" class ="manPicture" data-id="${member.id}" style="border: 1px solid green; height: 200px; width: 140px; margin: 0 auto;"></div>														
+							<div id="pictureView" class="manPicture" data-id="${member.id }" style="border: 1px solid green; height: 200px; width: 140px; margin: 0 auto;"></div>														
 						</div>
 					</div>
 					<br />
@@ -65,52 +45,48 @@ function CloseWindow(){
 	                  <label for="inputEmail3" class="col-sm-3 control-label text-right">아이디</label>
 	
 	                  <div class="col-sm-9">
-	                  ${ member.id }
-	                    <!-- <input name="id" type="text" class="form-control" id="inputEmail3"  value="" readonly> -->
+	                    <input name="id" type="text" class="form-control" id="inputEmail3"  value="${member.id }" readonly>
 	                  </div>
 	                </div>	               
 	                <div class="form-group row">
 	                  <label for="inputPassword3" class="col-sm-3 control-label text-right">이  름</label>
 	
 	                  <div class="col-sm-9">
-	                    ${ member.name }
-	                    <!-- <input name="pwd" type="text" class="form-control" id="inputPassword3" value="" readonly> -->
+	                    <input name="pwd" type="text" class="form-control" id="inputPassword3" value="${member.name }" readonly>
 	                  </div>
 	                </div>
 	                 <div class="form-group row">
 	                  <label for="inputPassword3" class="col-sm-3 control-label text-right">이메일</label>
-
+	
 	                  <div class="col-sm-9">
-	                  ${ member.email }
-	                   <!--  <input name="email" type="email" class="form-control" id="inputPassword3" value="" readonly> -->
+	                    <input name="email" type="email" class="form-control" id="inputPassword3" value="${member.email }" readonly>
 	                  </div>
 	                </div>
 	                 <div class="form-group row">
 	                  <label for="inputPassword3" class="col-sm-3 control-label text-right">전화번호</label>
 	                  <div class="col-sm-9">   
-	                   ${ member.phone }
-	                  <!-- 	<input name="phone" type="text" class="form-control" id="inputPassword3" value="" readonly>	                
- -->	                  </div>                  
+	                  	<input name="phone" type="text" class="form-control" id="inputPassword3" value="${member.phone }" readonly>	                
+	                  </div>                  
 	                </div>               
 	              </div>  
 		          <div class="card-footer" style="padding:5px 0;" >
 		          		<div class="row">
 			          		<div class="col-sm-3 text-center">
-			          			<button type="button" onclick="OpenWindow('modifyForm.do?id=${member.id}','회원상세', 700,800);" id="modifyBtn" class="btn btn-warning ">수 정</button>
+			          			<button type="button" onclick="location.href='modifyForm.do?id=${member.id}';" id="modifyBtn" class="btn btn-warning ">수 정</button>
 			          		</div>
 		          		
 			          		<div class="col-sm-3 text-center">
-			          			<button type="button" onclick="delete_go();" id="deleteBtn" class="btn btn-danger" >삭 제</button>
+			          			<button type="button" onclick="location.href='remove.do?id=${member.id}';" id="deleteBtn" class="btn btn-danger" >삭 제</button>
 			          		</div>
 		          			
 			          		<div class="col-sm-3 text-center">
-				          		<c:if test="${member.enabled eq 1}">
-				          				<button type="button" onclick="" id="stopBtn" class="btn btn-info" >비활성</button>
-				          		</c:if>
-				          		<c:if test="${member.enabled eq 0}">
-				          				<button type="button" onclick="" id="activeBtn" class="btn btn-info" >활&nbsp;&nbsp;성</button>
-				          		</c:if>
-			          		</div>			          						          
+			          		<c:if test="${member.enabled eq  1}">
+			          			<button type="button" onclick="" id="stopBtn" class="btn btn-info" >비활성</button>
+			          		</c:if>
+			          		<c:if test="${member.enabled eq 0 }">
+			          			<button type="button" onclick="" id="activeBtn" class="btn btn-info" >활&nbsp;&nbsp;성</button>
+			          		</c:if>
+			          		</div>
 			          		<div class="col-sm-3 text-center">
 			            		<button type="button" id="listBtn" onclick="CloseWindow();" class="btn btn-primary pull-right">닫 기</button>
 			            	</div>
@@ -122,12 +98,15 @@ function CloseWindow(){
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  
 </div>
+
+  
 <script>
-window.onload =function(){
-	MemberPictureThumb('<%=request.getContextPath() %>');
+
+window.onload=function(){
+	MemberPictureThumb('<%=request.getContextPath()%>');
 }
 </script>
+  
 
- <%@ include file="/WEB-INF/include/footer.jsp" %>
+<%-- <%@ include file="/WEB-INF/include/footer.jsp" %> --%>

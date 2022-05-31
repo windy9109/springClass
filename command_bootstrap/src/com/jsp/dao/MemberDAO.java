@@ -29,10 +29,6 @@ public interface MemberDAO {
 	// 회원 수정
 	public void updateMember(SqlSession session, MemberVO member) throws SQLException;
 	
-	// 회원 수정2(사진동일)
-	public void updateMember2(SqlSession session, MemberVO member) throws SQLException;
-
-		
 	// 회원정보 삭제
 	void deleteMember(SqlSession session,String id) throws SQLException;
 	

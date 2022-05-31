@@ -3,21 +3,19 @@ package com.jsp.dto;
 import java.util.Date;
 
 public class MemberVO {
+	
 
-	
-	private String id;
-	private String pwd;
-	private String name="___";
-	private String phone;
-	private String email;
-	private String picture;
-	private Date regDate;
-	private String authority;
-	private String enabled;
-	private String register;
-	private String address;
-	
-	
+	private String id;  //아이디
+	private String pwd; //패스워드
+	private String name="---"; //이름
+	private String phone; //전화번호
+	private String email;  //이메일
+	private String picture; // 사진파일 경로/파일명
+	private Date regDate; // 등록일
+	private String authority; // 권한
+	private int enabled;   // 사용여부
+	private String register;//등록자
+	private String address;//주소
 	
 	
 	public MemberVO() {}
@@ -26,6 +24,7 @@ public class MemberVO {
 		this.id = id;
 		this.pwd = pwd;
 	}
+	
 	
 	public String getId() {
 		return id;
@@ -66,8 +65,8 @@ public class MemberVO {
 	public Date getRegDate() {
 		return regDate;
 	}
-	public void setRegDate(Date date) {
-		this.regDate = date;
+	public void setRegDate(Date regDate) {
+		this.regDate = regDate;
 	}
 	public String getAuthority() {
 		return authority;
@@ -75,10 +74,10 @@ public class MemberVO {
 	public void setAuthority(String authority) {
 		this.authority = authority;
 	}
-	public String getEnabled() {
+	public int getEnabled() {
 		return enabled;
 	}
-	public void setEnabled(String enabled) {
+	public void setEnabled(int enabled) {
 		this.enabled = enabled;
 	}
 	public String getRegister() {
@@ -99,10 +98,7 @@ public class MemberVO {
 				+ ", picture=" + picture + ", regDate=" + regDate + ", authority=" + authority + ", enabled=" + enabled
 				+ ", register=" + register + ", address=" + address + "]";
 	}
-
 	
 	
 	
 }
-
-

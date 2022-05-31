@@ -30,7 +30,7 @@ public class HandlerMapper {
 			
 			String command = it.next(); //key -> url
 			
-			String actionClassName=rbHome.getString(command);
+			String actionClassName = rbHome.getString(command);
 			
 			try {
 				Class<?> actionClass = Class.forName(actionClassName);

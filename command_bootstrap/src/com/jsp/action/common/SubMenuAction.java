@@ -1,7 +1,6 @@
 package com.jsp.action.common;
 
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +12,6 @@ import com.jsp.dto.MenuVO;
 import com.jsp.service.MenuService;
 
 public class SubMenuAction implements Action {
-	
 	
 	private MenuService menuService;
 	public void setMenuService(MenuService menuService) {
@@ -28,37 +26,31 @@ public class SubMenuAction implements Action {
 		String mCode = request.getParameter("mCode");
 		List<MenuVO> subMenu = null;
 		
-		if(mCode ==null) mCode="M000000";
-		
 		try {
+			subMenu = menuService.getSubMenuList(mCode);
 			
-			subMenu = menuService.getSubMenuList(mCode);			
-			//request.setAttribute("subMenuList", subMenuList);
-			
-			//출력
+			// 출력
 			ObjectMapper mapper = new ObjectMapper();
 			
-			//content Type 결정
+			// content Type 결정
 			response.setContentType("application/json;charset=utf-8");
 			PrintWriter out = response.getWriter();
 			
-			//내보내기
-			out.print(mapper.writeValueAsString(subMenu));
-			
-			//out 객체를 종료하고 환원.
+			// 내보내기
+			out.println(mapper.writeValueAsString(subMenu));
+
+			// out 객체를 종료하고 환원.
 			out.close();
 			
-			// iframe 상태유지
-			MenuVO menu = menuService.getMenuByMcode(mCode);
-			request.setAttribute("menu", menu);
 			
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-			// Exception 처리 : log 기록...
-			throw e;
+			// Exception 처리......
+			throw e;	
 		}
-
-		return url;
+			
+		return url;	
+			
 	}
 
 }

@@ -24,11 +24,8 @@ public class LoginAction implements Action {
 		String id = request.getParameter("id");
 		String pwd = request.getParameter("pwd");
 		String retUrl = request.getParameter("retUrl");
-		System.out.println(retUrl);
 		
-		if(retUrl != null) url = "redirect:"+retUrl;
-		
-
+		if(retUrl!=null) url="redirect:"+retUrl;
 		
 		try {
 			loginSearchMemberService.login(id, pwd);

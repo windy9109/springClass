@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator"%>
     
+    
 <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
