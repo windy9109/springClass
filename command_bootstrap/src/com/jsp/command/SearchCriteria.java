@@ -4,6 +4,10 @@ public class SearchCriteria extends Criteria {
 	
 	private String keyword;
 	private String searchType;
+
+	
+	
+
 	
 	public String getKeyword() {
 		return keyword;
@@ -17,6 +21,8 @@ public class SearchCriteria extends Criteria {
 	public void setSearchType(String searchType) {
 		this.searchType = searchType;
 	}
+	
+	
 	
 	
 }
