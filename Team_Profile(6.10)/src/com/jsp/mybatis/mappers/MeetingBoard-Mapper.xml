@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MeetingBoard-Mapper">
+		
+	<sql id="search">
+		<if test="searchType == 't'.toString()">
+			and m_title like '%'||#{keyword}||'%'			
+		</if>
+		<if test="searchType == 'w'.toString()">
+			and m_writer like '%'||#{keyword}||'%'			
+		</if>
+		<if test="searchType == 'c'.toString()">
+			and m_content like '%'||#{keyword}||'%'			
+		</if>
+		<if test="searchType == 'tc'.toString()">
+			and (
+			m_title like '%'||#{keyword}||'%'
+			or
+			m_content like '%'||#{keyword}||'%'						
+			)			
+		</if>
+		<if test="searchType == 'cw'.toString()">
+			and (
+			m_writer like '%'||#{keyword}||'%'
+			or
+			m_content like '%'||#{keyword}||'%'						
+			)			
+		</if>
+		<if test="searchType == 'tcw'.toString()">
+			and (
+			m_title like '%'||#{keyword}||'%'
+			or
+			m_writer like '%'||#{keyword}||'%'
+			or
+			m_content like '%'||#{keyword}||'%'						
+			)			
+		</if>
+	</sql>
+	<select id="selectSearchMeetingBoardList" resultType="meetingBoard">
+		select
+		*
+		from
+		meeting_board
+		where m_no is not null  			  	
+		<include refid="search" />
+		order by m_no desc
+	</select>
+	
+	<select id="selectSearchMeetingBoardListCount" resultType="int">
+		select
+		count(*)
+		from
+		meeting_board
+		where m_no is not null  			  	
+		<include refid="search" />
+		order by m_no desc
+	</select>
+	
+	
+	<select id="selectMeetingBoardBym_no"  resultType="meetingBoard">
+		select * 
+		from meeting_board 
+		where m_no=#{m_no}
+	</select>
+	
+	<update id="insertMeetingBoard" parameterType="meetingBoard">
+		insert 
+		into 
+		meeting_board(m_no,m_title,m_writer,m_content,m_regdate)
+		values
+		(#{m_no},#{m_title},#{m_writer},#{m_content},sysdate)
+	</update>
+	
+	<update id="updateMeetingBoard" parameterType="meetingBoard">
+		update 
+		meeting_board 
+		set 
+		m_title=#{m_title}, m_content=#{m_content}
+		where m_no=#{m_no}
+	</update>
+	
+	<update id="deleteMeetingBoard" parameterType="int">
+		delete 
+		from meeting_board 
+		where m_no=#{m_no}
+	</update>
+	
+	
+	<select id="selectMeetingBoardSeqNext" resultType="int">
+		select meeting_board_seq.nextval as m_no from dual
+	</select>
+	
+</mapper>  
+
+

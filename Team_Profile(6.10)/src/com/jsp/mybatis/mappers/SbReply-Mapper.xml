@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SbReply-Mapper">
+	
+	<select id="selectSbReplySeqNextValue" resultType="int" >
+		select sbreply_seq.nextval
+		from dual		
+	</select>
+	
+	<select id="selectSbReplyList" resultType="sbreply">
+		select *
+		from sb_reply
+		where sb_no=#{sb_no}
+		order by rno asc
+	</select>
+	<select id="countSbReply" resultType="int">
+		select count(sb_no) 
+		from sb_reply
+		where sb_no=#{sb_no}
+	</select>
+	
+	<update id="insertSbReply" >
+		insert into reply(sb_rno,sb_no,sb_rtext,sb_rmem)
+		values(#{sb_rno},#{sb_no},#{sb_rtext},#{sb_rmem})
+	</update>
+	
+	<update id="updatSbReply" parameterType="sbreply">
+		update sb_reply 
+		set 
+		sb_rtext=#{sb_rtext},
+		sb_updatedate=sysdate
+		where sb_rno=#{sb_rno}		
+	</update>
+	
+	<update id="deleteSbReply" parameterType="int">
+		delete from sb_reply
+		where sb_rno=#{sb_rno}		
+	</update>	
+</mapper>

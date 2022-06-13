@@ -15,25 +15,21 @@
 	<bean id = "pdsDAO" class="com.jsp.dao.PdsDAOImpl" />
 	<bean id = "attachDAO" class="com.jsp.dao.AttachDAOImpl" />
 	
-	
 	<!-- Service -->
-	
 	<bean id="pdsService" class="com.jsp.service.PdsServiceImpl" >
 		<property name="sqlSessionFactory" ref-value="sqlSessionFactory" />
-		<property name="pdsDAO" ref-value="pdsDAO" />	
+		<property name="pdsDAO" ref-value="pdsDAO" />
 		<property name="attachDAO" ref-value="attachDAO" />	
-	</bean>
-	
-	
+	</bean>	
 	<bean id="replyService" class="com.jsp.service.ReplyServiceImpl" >
 		<property name="sqlSessionFactory" ref-value="sqlSessionFactory" />
-		<property name="replyDAO" ref-value="replyDAO" />	
-		<property name="memberDAO" ref-value="searchMemberDAO" />		
-	</bean>
+		<property name="replyDAO" ref-value="replyDAO" />
+		<property name="memberDAO" ref-value="searchMemberDAO" />
+	</bean>	
 	<bean id="boardService" class="com.jsp.service.BoardServiceImpl" >
 		<property name="sqlSessionFactory" ref-value="sqlSessionFactory" />
 		<property name="boardDAO" ref-value="boardDAO" />	
-		<property name="replyDAO" ref-value="replyDAO" />
+		<property name="replyDAO" ref-value="replyDAO" />		
 	</bean>
 	<bean id="noticeService" class="com.jsp.service.NoticeServiceImpl" >
 		<property name="sqlSessionFactory" ref-value="sqlSessionFactory" />
@@ -62,8 +58,6 @@
 		<property name="sqlSessionFactoryForLogin" ref-value="sqlSessionFactory" />
 				      
 	</bean>
-	      
-	      
 	      
 	      
 

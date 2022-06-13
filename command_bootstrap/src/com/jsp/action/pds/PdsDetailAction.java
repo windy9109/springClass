@@ -8,10 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.jsp.action.Action;
+import com.jsp.controller.MakeFileName;
 import com.jsp.dto.AttachVO;
 import com.jsp.dto.PdsVO;
 import com.jsp.service.PdsService;
-import com.jsp.util.MakeFileName;
 
 public class PdsDetailAction implements Action {
 	
@@ -23,7 +23,7 @@ public class PdsDetailAction implements Action {
 	
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+			throws Exception {
 		String url="/pds/detail";
 
 		int pno = Integer.parseInt(request.getParameter("pno"));
@@ -33,6 +33,7 @@ public class PdsDetailAction implements Action {
 			PdsVO pds =null; 
 			if(from!=null && from.equals("list")) {
 				pds = pdsService.read(pno);
+				url="redirect:/pds/detail.do?pno="+pno;
 			}else {
 				pds = pdsService.getPds(pno);
 			}	
@@ -44,9 +45,9 @@ public class PdsDetailAction implements Action {
 			request.setAttribute("pds", pds);
 			
 		} catch (Exception e) {			
-			e.printStackTrace();
-			response.sendError(response.SC_INTERNAL_SERVER_ERROR);
+			e.printStackTrace();			
 			url=null;
+			throw e;
 		}		
 		
 		return url;

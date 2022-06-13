@@ -45,7 +45,6 @@
 		<mapper resource="com/jsp/mybatis/mappers/Reply-Mapper.xml"/>
 		<mapper resource="com/jsp/mybatis/mappers/Pds-Mapper.xml"/>
 		<mapper resource="com/jsp/mybatis/mappers/Attach-Mapper.xml"/>
-		
 	</mappers>
 	
 </configuration>

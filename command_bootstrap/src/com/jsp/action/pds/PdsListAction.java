@@ -11,7 +11,6 @@ import com.jsp.action.Action;
 import com.jsp.command.Criteria;
 import com.jsp.command.SearchCriteriaCommand;
 import com.jsp.controller.HttpRequestParameterAdapter;
-import com.jsp.controller.XSSHttpRequestParameterAdapter;
 import com.jsp.service.PdsService;
 
 public class PdsListAction implements Action {
@@ -28,7 +27,8 @@ public class PdsListAction implements Action {
 		String url = "/pds/list";
 
 		try {
-			SearchCriteriaCommand criCMD = HttpRequestParameterAdapter.execute(request, SearchCriteriaCommand.class);
+			SearchCriteriaCommand criCMD		
+				=  HttpRequestParameterAdapter.execute(request, SearchCriteriaCommand.class);
 			
 			Criteria cri = criCMD.toSearchCriteria();
 

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="FileBoard-Mapper">
+	<sql id="search">
+		<if test="searchType == 't'.toString()">
+			and f_title like '%'||#{keyword}||'%'			
+		</if>
+		<if test="searchType == 'w'.toString()">
+			and f_writer like '%'||#{keyword}||'%'			
+		</if>
+		<if test="searchType == 'c'.toString()">
+			and f_content like '%'||#{keyword}||'%'			
+		</if>
+		<if test="searchType == 'tc'.toString()">
+			and (
+			f_title like '%'||#{keyword}||'%'
+			or
+			f_content like '%'||#{keyword}||'%'						
+			)			
+		</if>
+		<if test="searchType == 'cw'.toString()">
+			and (
+			f_writer like '%'||#{keyword}||'%'
+			or
+			f_content like '%'||#{keyword}||'%'						
+			)			
+		</if>
+		<if test="searchType == 'tcw'.toString()">
+			and (
+			f_title like '%'||#{keyword}||'%'
+			or
+			f_writer like '%'||#{keyword}||'%'
+			or
+			f_content like '%'||#{keyword}||'%'						
+			)			
+		</if>
+	</sql>
+	
+	<select id="selectSearchFileBoardList" resultType="fileBoard">
+		select
+		*
+		from
+		file_board
+		where f_no is not null  			  	
+		<include refid="search" />
+		order by f_no desc
+	</select>
+	
+	<select id="selectSearchFileBoardListCount"  resultType="int">
+		select
+		count(*)
+		from
+		file_board
+		where f_no is not null  			  	
+		<include refid="search" />
+		order by f_no desc
+	</select>
+	
+	
+	<select id="selectFileBoardByf_no"  resultType="fileBoard">
+		select * 
+		from file_board 
+		where f_no=#{f_no}
+	</select>
+	
+	<update id="insertFileBoard" parameterType="fileBoard">
+		insert 
+		into 
+		file_board(f_no,f_title,f_writer,f_content,f_regdate)
+		values
+		(#{f_no},#{f_title},#{f_writer},#{f_content},sysdate)
+	</update>
+	
+	<update id="updateFileBoard" parameterType="fileBoard">
+		update 
+		file_board
+		set 
+		f_title=#{f_title}, f_content=#{f_content}
+		where f_no=#{f_no}
+	</update>
+	
+	<update id="deleteFileBoard" parameterType="int">
+		delete 
+		from file_board 
+		where f_no=#{f_no}
+	</update>
+	
+	
+	<select id="selectFileBoardSeqNext" resultType="int">
+		select fileboard_seq.nextval as f_no from dual
+	</select>
+</mapper>  
+
+

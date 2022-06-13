@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="StudyBoard-Mapper">
+		
+	<sql id="search">
+		<if test="searchType == 't'.toString()">
+			and title like '%'||#{keyword}||'%'			
+		</if>
+		<if test="searchType == 'w'.toString()">
+			and writer like '%'||#{keyword}||'%'			
+		</if>
+		<if test="searchType == 'c'.toString()">
+			and content like '%'||#{keyword}||'%'			
+		</if>
+		<if test="searchType == 'tc'.toString()">
+			and (
+			title like '%'||#{keyword}||'%'
+			or
+			content like '%'||#{keyword}||'%'						
+			)			
+		</if>
+		<if test="searchType == 'cw'.toString()">
+			and (
+			writer like '%'||#{keyword}||'%'
+			or
+			content like '%'||#{keyword}||'%'						
+			)			
+		</if>
+		<if test="searchType == 'tcw'.toString()">
+			and (
+			title like '%'||#{keyword}||'%'
+			or
+			writer like '%'||#{keyword}||'%'
+			or
+			content like '%'||#{keyword}||'%'						
+			)			
+		</if>
+	</sql>
+	
+	<select id="selectSearchStudyBoardList"	resultType="studyboard">
+		select
+		*
+		from
+		study_board
+		where s_no is not null  			  	
+		<include refid="search" />
+		order by s_regdate desc
+	</select>
+	
+	<select id="selectSearchStudyBoardListCount" resultType="int">
+		select
+		count(*)
+		from
+		study_board
+		where s_no is not null  			  	
+		<include refid="search" />
+		order by s_regdate desc
+	</select>
+	
+	
+	<select id="selectStudyBoardBySno"  resultType="studyboard">
+		select * 
+		from study_board 
+		where s_no=#{s_no}
+	</select>
+	
+	<update id="insertStudyBoard" parameterType="studyboard">
+		insert 
+		into 
+		study_board(s_no,s_title,s_writer,s_content)
+		values
+		(#{s_no},#{s_title},#{s_writer},#{s_content})
+	</update>
+	
+	<update id="updateStudyBoard" parameterType="studyboard">
+		update 
+		study_board 
+		set 
+		s_title=#{s_title}, s_content=#{s_content}, s_regdate=sysdate 
+		where s_no=#{s_no}
+	</update>
+	
+	<update id="deleteStudyBoard" parameterType="int">
+		delete 
+		from study_board 
+		where s_no=#{s_no}
+	</update>
+	
+	<update id="increaseViewCnt" parameterType="int">
+		update 
+		study_board 
+		set 
+		s_viewcnt=s_viewcnt+1 
+		where s_no=#{s_no}
+	</update>
+	
+	<select id="selectStudyBoardSeqNext" resultType="int">
+		select study_board_seq.nextval as s_no from dual
+	</select>
+	
+</mapper>  
+
+

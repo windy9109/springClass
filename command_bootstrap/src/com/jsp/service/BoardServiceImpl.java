@@ -11,6 +11,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import com.jsp.command.Criteria;
 import com.jsp.command.PageMaker;
 import com.jsp.dao.BoardDAO;
+import com.jsp.dao.ReplyDAO;
 import com.jsp.dto.BoardVO;
 
 public class BoardServiceImpl implements BoardService{
@@ -26,7 +27,10 @@ public class BoardServiceImpl implements BoardService{
 		this.boardDAO = boardDAO;
 	}
 	
-	
+	private ReplyDAO replyDAO;
+	public void setReplyDAO(ReplyDAO replyDAO) {
+		this.replyDAO = replyDAO;
+	}
 	
 	@Override
 	public BoardVO getBoardForModify(int bno) throws SQLException {
@@ -99,7 +103,11 @@ public class BoardServiceImpl implements BoardService{
 			List<BoardVO> boardList = boardDAO.selectBoardCriteria(session, cri);
 			
 			// reply count 입력
-		
+			if(boardList!=null) for (BoardVO board : boardList) {
+				int replycnt = replyDAO.countReply(session, board.getBno());
+				board.setReplycnt(replycnt);
+			}
+						
 			// 전체 board 개수
 			int totalCount = boardDAO.selectBoardCriteriaTotalCount(session, cri);
 

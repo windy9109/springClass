@@ -1,8 +1,5 @@
 package com.jsp.action.pds;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,8 +8,7 @@ import com.jsp.action.Action;
 public class PdsIndexAction implements Action {
 
 	@Override
-	public String process(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String url="/pds/main";
 		return url;
 	}

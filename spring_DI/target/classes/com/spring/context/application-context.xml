@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	
+	<!-- Repository -->
+	<bean id="memberDAO" class="com.jsp.dao.MemberDAOImpl" />
+	<bean id="searchMemberDAO" class="com.jsp.dao.SearchMemberDAOImpl" />
+	<bean id = "menuDAO" class="com.jsp.dao.MenuDAOImpl" />	
+	<bean id = "noticeDAO" class="com.jsp.dao.NoticeDAOImpl" />
+	<bean id = "boardDAO" class="com.jsp.dao.BoardDAOImpl" />
+	<bean id = "replyDAO" class="com.jsp.dao.ReplyDAOImpl" />
+	<bean id = "pdsDAO" class="com.jsp.dao.PdsDAOImpl" />
+	<bean id = "attachDAO" class="com.jsp.dao.AttachDAOImpl" />
+	
+	<bean id="memberDAOBean" class="com.spring.dao.MemberDAOBeanImpl"
+		p:searchMemberDAO-ref="searchMemberDAO"
+		p:session-ref="sqlSession"		
+	 />
+	 <bean id="menuDAOBean" class="com.spring.dao.MenuDAOBeanImpl"
+		p:menuDAO-ref="menuDAO"
+		p:session-ref="sqlSession"			
+	 />
+	 <bean id="noticeDAOBean" class="com.spring.dao.NoticeDAOBeanImpl"
+		p:noticeDAO-ref="noticeDAO"
+		p:session-ref="sqlSession"	
+	 />
+	 <bean id="boardDAOBean" class="com.spring.dao.BoardDAOBeanImpl"
+		p:boardDAO-ref="boardDAO"
+		p:session-ref="sqlSession"	
+	 />
+	 <bean id="replyDAOBean" class="com.spring.dao.ReplyDAOBeanImpl"
+		p:replyDAO-ref="replyDAO"
+		p:session-ref="sqlSession"	
+	 />
+	  <bean id="pdsDAOBean" class="com.spring.dao.PdsDAOBeanImpl"
+		p:pdsDAO-ref="pdsDAO"
+		p:session-ref="sqlSession"	
+	 />
+	 <bean id="attachDAOBean" class="com.spring.dao.AttachDAOBeanImpl"
+		p:attachDAO-ref="attachDAO"
+		p:session-ref="sqlSession"	
+	 />
+	 
+	 
+	<!-- Service -->
+	
+	<bean id="memberService" class="com.spring.service.MemberServiceImpl"
+		p:MemberDAOBean-ref="MemberDAOBean"		
+	 />
+	 <bean id="boardService" class="com.spring.service.BoardServiceImpl"
+		 p:boardDAOBean-ref="boardDAOBean"
+		 p:replyDAOBean-ref="replyDAOBean"		
+	 />
+	 <bean id="noticeService" class="com.spring.service.NoticeServiceImpl"
+		p:noticeDAO-ref="noticeDAOBean"
+	 />
+	 <bean id="replyService" class="com.spring.service.ReplyServiceImpl"
+		p:memberDAOBean-ref="memberDAOBean"
+		p:replyDAOBean-ref="replyDAOBean"
+	 />
+	  <bean id="pdsService" class="com.spring.service.PdsServiceImpl"
+		p:attachDAOBean-ref="attachDAOBean"
+		p:pdsDAOBean-ref="pdsDAOBean"
+	 />
+	 <bean id="menuService" class="com.spring.service.MenuServiceImpl"
+		p:menuDAO-ref="menuDAOBean"	
+	 />
+	 
+	
+</beans>

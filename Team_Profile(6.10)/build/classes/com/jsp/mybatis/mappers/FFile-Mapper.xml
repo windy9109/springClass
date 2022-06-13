@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="FFile-Mapper">
+	<select id="selectFFileByf_no" resultType="fFile">
+		select * 
+		from f_file 
+		where f_no = #{f_no}
+	</select>	
+	
+	<select id="selectFFileBya_no" resultType="fFile">
+		select *
+		from f_file
+		where a_no=#{a_no}
+	</select>
+	
+	<update id="insertFFile">
+		insert into 
+		f_file (a_no, uploadpath, filename, filetype, f_no, attacher)
+		values (ffile_seq.nextval, #{uploadPath}, #{fileName},#{fileType}, 
+				#{f_no},#{attacher} )
+	</update>
+	
+	<update id="deleteFFile">
+		delete from f_file where a_no = #{a_no}
+	</update>
+	
+	<update id="deleteAllFFile">
+		delete 
+		from f_file 
+		where f_no = #{f_no}
+	</update>
+</mapper>  
+
+

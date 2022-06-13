@@ -37,8 +37,9 @@ public class PdsServiceImpl implements PdsService {
 	
 
 	@Override
-	public Map<String, Object> getList(Criteria cri) throws SQLException {
-		SqlSession session = sqlSessionFactory.openSession();
+	public Map<String, Object> getList(Criteria cri) throws SQLException {		
+		SqlSession session = sqlSessionFactory.openSession();		
+				
 		try {
 			List<PdsVO> pdsList = pdsDAO.selectPdsCriteria(session, cri);
 		

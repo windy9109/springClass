@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+
+	<!-- datasource -->
+	<bean id="sqlSessionFactory"
+		  class="com.jsp.datasource.OracleMybatisSqlSessionFactory" />
+
+	<!-- Repository -->
+	<!-- 	
+	<bean id="searchMemberDAO" class="com.jsp.dao.SearchMemberDAOImpl" />
+	<bean id = "menuDAO" class="com.jsp.dao.MenuDAOImpl" />	
+	<bean id = "noticeDAO" class="com.jsp.dao.NoticeDAOImpl" />
+	<bean id = "boardDAO" class="com.jsp.dao.BoardDAOImpl" />
+	<bean id = "replyDAO" class="com.jsp.dao.ReplyDAOImpl"/>
+	<bean id = "pdsDAO" class="com.jsp.dao.PdsDAOImpl"/>
+	<bean id = "attachDAO" class="com.jsp.dao.AttachDAOImpl"/> -->
+
+	<bean id = "fileBoardDAO" class="com.jsp.dao.FileBoardDAOImpl" />
+	<bean id = "fFileDAO" class="com.jsp.dao.FFileDAOImpl" />
+	<bean id = "fBReplyDAO" class="com.jsp.dao.FBReplyDAOImpl" />
+	<bean id="memberDAO" class="com.jsp.dao.MemberDAOImpl" />
+	<bean id="meetingBoardDAO" class="com.jsp.dao.MeetingBoardDAOImpl" />
+	<bean id = "noticeDAO" class="com.jsp.dao.NoticeDAOImpl" />
+	<bean id = "studyBoardDAO" class="com.jsp.dao.StudyBoardDAOImpl" />
+	<bean id = "sbReplyDAO" class="com.jsp.dao.SbReplyDAOImpl"/>
+	<!-- Service -->
+	<bean id="fileBoardService" class="com.jsp.service.FileBoardServiceImpl">
+		<property name="sqlSessionFactory" ref-value="sqlSessionFactory" />
+		<property name="fileBoardDAO" ref-value="fileBoardDAO" />	
+		<property name="fFileDAO" ref-value="fFileDAO" />	
+	</bean>
+	<bean id="fBReplyService" class="com.jsp.service.FBReplyServiceImpl">
+		<property name="sqlSessionFactory" ref-value="sqlSessionFactory" />
+		<property name="fBReplyDAO" ref-value="fBReplyDAO" />
+<!-- 		<property name="memberDAO" ref-value="searchMemberDAO" />	 -->
+	</bean>
+	<bean id="memberService"
+	      class="com.jsp.service.MemberServiceImpl" >
+		<property name="sqlSessionFactory"  ref-value="sqlSessionFactory"/>
+		<property name="memberDAO"  ref-value="memberDAO"/>     
+	</bean>	
+	<bean id="meetingBoardService" class="com.jsp.service.MeetingBoardServiceImpl" >
+		<property name="sqlSessionFactory" ref-value="sqlSessionFactory" />
+		<property name="meetingBoardDAO" ref-value="meetingBoardDAO" />	
+	</bean>
+	<bean id="noticeService" class="com.jsp.service.NoticeServiceImpl" >
+		<property name="sqlSessionFactory" ref-value="sqlSessionFactory" />
+		<property name="noticeDAO" ref-value="noticeDAO" />
+	</bean>
+	
+	<bean id="studyBoardService" class="com.jsp.service.StudyBoardServiceImpl">
+		 <property name="sqlSessionFactory"  ref-value="sqlSessionFactory"/>
+     	 <property name="studyBoardDAO"  ref-value="studyBoardDAO"/>     
+     	 <property name="sbReplyDAO"  ref-value="sbReplyDAO"/>  
+	</bean>
+	
+	<bean id="sbReplyService" class="com.jsp.service.SbReplyServiceImpl">
+      <property name="sqlSessionFactory" ref-value="sqlSessionFactory" />
+      <property name="sbreplyDAO" ref-value="sbreplyDAO" />
+      <property name="memberDAO"  ref-value="memberDAO"/> 
+   </bean>
+	<!-- <bean id="pdsService" class="com.jsp.service.PdsServiceImpl">
+		<property name="sqlSessionFactory" ref-value="sqlSessionFactory" />
+		<property name="pdsDAO" ref-value="pdsDAO" />	
+		<property name="attachDAO" ref-value="attachDAO" />	
+	</bean>
+	
+	<bean id="boardService" class="com.jsp.service.BoardServiceImpl" >
+		<property name="sqlSessionFactory" ref-value="sqlSessionFactory" />
+		<property name="boardDAO" ref-value="boardDAO" />	
+		<property name="replyDAO" ref-value="replyDAO" />
+	</bean>
+	<bean id="noticeService" class="com.jsp.service.NoticeServiceImpl" >
+		<property name="sqlSessionFactory" ref-value="sqlSessionFactory" />
+		<property name="noticeDAO" ref-value="noticeDAO" />
+	</bean>
+	<bean id="menuService" class="com.jsp.service.MenuServiceImpl">		
+		<property name="sqlSessionFactory" ref-value="sqlSessionFactory" />
+		<property name="menuDAO" ref-value="menuDAO" />
+	</bean>
+	      
+	<bean id="searchMemberService"
+	      class="com.jsp.service.SearchMemberServiceImpl" >	    	         
+		<property name="sqlSessionFactory"  ref-value="sqlSessionFactory"/>
+		<property name="memberDAO"  ref-value="searchMemberDAO"/>     
+	</bean>
+	
+	<bean id="loginSearchMemberService"
+	      class="com.jsp.service.LoginSearchMemberServiceImpl" >
+		<property name="memberDAO" ref-value="searchMemberDAO" />
+		<property name="searchMemberDAO" ref-value="searchMemberDAO" />
+		<property name="sqlSessionFactory" ref-value="sqlSessionFactory" />
+		<property name="sqlSessionFactoryForLogin" ref-value="sqlSessionFactory" />
+				      
+	</bean> -->
+	      
+	      
+
+</beans>
