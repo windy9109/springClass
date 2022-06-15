@@ -45,7 +45,7 @@ public class CommonController {
 	}
 	
 	
-	@RequestMapping("/indax")
+	@RequestMapping("/index")
 	public String indax(@RequestParam(defaultValue = "M000000")String mCode, Model model) throws SQLException {
 		String url = "common/indexPage";
 		

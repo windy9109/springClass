@@ -50,6 +50,11 @@ public class NoticeServiceImpl implements NoticeService{
 		noticeDAOBean.increaseViewCount(nno);
 		
 		NoticeVO board = noticeDAOBean.selectNoticeByNno(nno);
+		
+		//강제 예외발생
+		//if(true) throw new SQLException();
+		
+		
 		return board;
 	}
 
