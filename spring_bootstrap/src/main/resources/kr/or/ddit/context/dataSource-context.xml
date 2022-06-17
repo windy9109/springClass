@@ -19,7 +19,6 @@
 	      p:maxTotal="2"
 	/>
 	
-	
 	<bean id="dataSourceSpied"
 		class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
 		<constructor-arg ref="dataSource" />
@@ -40,15 +39,10 @@
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate"
 		  c:sqlSessionFactory-ref="sqlSessionFactory"
 		  />	 
-	
-
 		
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
 		p:dataSource-ref="dataSourceSpied"
 	/>	
-	
-	
-	
 	
 </beans>
