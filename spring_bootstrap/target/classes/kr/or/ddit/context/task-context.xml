@@ -32,7 +32,21 @@
 		<scheduled ref="summernoteImageRemoveTask" 
 				   method="fileRemove"
 				   cron="*/10 * * * * *"/>
-	</scheduled-tasks>         
+	</scheduled-tasks>        
+	
+
+	
+	<beans:bean id="LoginUserLogTask"
+	            class="kr.or.ddit.scheduler.LoginUserLogTaskScheduler"
+	           p:loginUserLogService-ref="loginUserLogService"
+	           p:savePath-ref="loginUserLogSavePath"
+	            />
+	<scheduler id="LoginUserLogScheduler"/>
+	<scheduled-tasks scheduler="LoginUserLogScheduler">
+		<scheduled ref="sLoginUserLogTask" 
+				   method="LoginUserLogToDataBase"
+				   cron="*/10 * * * * *"/>
+	</scheduled-tasks>        
 	
 	
 </beans:beans>
